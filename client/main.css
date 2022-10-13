@@ -1,4 +1,52 @@
-body {
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  border: none;
+  list-style: none;
+}
+
+html,
+body,
+#react-target {
+  height: 100%;
+  background-color: #bbb;
+}
+
+button:hover {
+  cursor:pointer;
+}
+
+.main{
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border: 1px solid black;
   padding: 10px;
-  font-family: sans-serif;
+}
+
+.login-form {
+  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+}
+
+.login-form > input{
+  padding: 6px 6px;
+  margin: 10px;
+}
+
+.login button {
+  padding: 4px;
+  margin: 4px;
 }
