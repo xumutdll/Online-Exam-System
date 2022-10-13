@@ -1,24 +1,23 @@
 import React from "react";
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route, NavLink } from "react-router-dom";
 
 import { Login } from "./Login.jsx";
-5;
 import { Register } from "./Register.jsx";
+import { NotFound } from "./NotFound.jsx";
 
 export const App = () => (
   <div className="main">
     <div className="login">
-      <div className="buttons">
-        <Link to="/">
-          <button>Login</button>
-        </Link>
-        <Link to="/register">
-          <button>Register</button>
-        </Link>
+      <div className="navlinks">
+        <NavLink end to="/">
+          Login
+        </NavLink>
+        <NavLink to="/register">Register</NavLink>
       </div>
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </div>
   </div>
