@@ -47,36 +47,4 @@ Meteor.methods({
       // return "Succesfully registered."; // doesn't work
     }
   },
-
-  "users.login"(email, password) {
-    check(email, String);
-    check(password, String);
-
-    Meteor.loginWithPassword({ email: email }, password, (error) => {
-      console.log(error);
-    });
-    // const user = Meteor.users.findOne(
-    //   { email: email },
-    //   { email: 1, password: 1 }
-    // );
-    // console.log(user); // ???
-
-    // if (!!user) {
-    //   if (user.password === password) {
-    //     return true;
-    //   } else {
-    //     return false;
-    //   }
-    // } else return false;
-  },
-
-  "users.checkCollisions"(email) {
-    check(email, String);
-    const user = Meteor.users.findOne({ email: email });
-
-    if (!user) {
-      return false;
-    }
-    return true;
-  },
 });

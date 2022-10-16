@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Meteor } from "meteor/meteor";
-import { Accounts } from "meteor/accounts-base";
 
 export const Register = () => {
   const [form, setForm] = useState(() => {
@@ -57,8 +56,6 @@ export const Register = () => {
         name="email"
         value={form.email}
         onChange={(e) => setForm({ ...form, email: e.target.value })}
-        // onChange={(e) => setForm({ ...form, email.address: e.target.value })}
-        // onChange={(e) => change(e.target.value)}
       />
       <label htmlFor="phone">Phone:</label>
       <input
