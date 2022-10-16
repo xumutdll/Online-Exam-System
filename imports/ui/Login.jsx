@@ -1,17 +1,33 @@
 import React, { useState } from "react";
-import { UsersCollection } from "../db/Collections";
+// import { Accounts } from "meteor/accounts-base";
+import { Meteor } from "meteor/meteor";
 
 export const Login = () => {
   const [email, setEmail] = useState(() => "");
   const [password, setPassword] = useState(() => "");
 
   const handleLogin = (e) => {
-    const user = UsersCollection.find(email);
-    console.log(user);
+    e.preventDefault();
+
+    // Meteor.loginWithPassword({ email: em }, pass, (error) => {
+    //   // console.log(email, password);
+    //   console.log(error);
+    //   alert("Incorrect credentials.");
+    // });
+    // Meteor.call("users.login", email, password, (err, res) => {
+    //   console.log(err);
+    // });
+    // Meteor.call("users.login", email, password, (err, res) => {
+    //   if (res) {
+
+    //   } else {
+    //     alert("Incorrect credentials.");
+    //   }
+    // });
   };
 
   return (
-    <div className="login-form">
+    <form onSubmit={handleLogin} className="login-form">
       <label htmlFor="email">Email:</label>
       <input
         type="text"
@@ -29,7 +45,7 @@ export const Login = () => {
         // placeholder="Passsword"
         onChange={(e) => setPassword(e.target.value)}
       />
-      <button onClick={handleLogin}>Log In</button>
-    </div>
+      <button type="submit">Log In</button>
+    </form>
   );
 };

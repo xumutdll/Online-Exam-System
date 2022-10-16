@@ -1,48 +1,37 @@
 import React, { useState, useEffect } from "react";
 import { Meteor } from "meteor/meteor";
+import { Accounts } from "meteor/accounts-base";
 
 export const Register = () => {
   const [form, setForm] = useState(() => {
     return {
       firstName: "",
       lastName: "",
-      email: "",
       phone: "",
+      email: "",
       password: "",
       passwordCheck: "",
     };
   });
 
   // useEffect(() => {
-  //   console.log(form);
+  //   console.log(typeof form.password);
   // }, [form]);
 
   const handleRegister = () => {
-    if (
-      form.firstName === "" ||
-      form.lastName === "" ||
-      form.email === "" ||
-      form.phone === "" ||
-      form.password === "" ||
-      form.passwordCheck === ""
-    )
-      alert("Please fill the empty areas!");
-    else if (form.password !== form.passwordCheck)
-      alert("Passwords do not match!");
-    else {
-      // delete form.passwordCheck
-      Meteor.call("users.insert", form);
-
-      setForm({
-        firstName: "",
-        lastName: "",
-        email: "",
-        phone: "",
-        password: "",
-        passwordCheck: "",
-      });
-      alert("Succesfully registered!");
-    }
+    Meteor.call("users.insert", form, (err, res) => {
+      if (res === undefined) {
+        setForm({
+          firstName: "",
+          lastName: "",
+          email: "",
+          phone: "",
+          password: "",
+          passwordCheck: "",
+        });
+        alert("Succesfully registered.");
+      } else alert(res);
+    });
   };
 
   return (
@@ -68,6 +57,8 @@ export const Register = () => {
         name="email"
         value={form.email}
         onChange={(e) => setForm({ ...form, email: e.target.value })}
+        // onChange={(e) => setForm({ ...form, email.address: e.target.value })}
+        // onChange={(e) => change(e.target.value)}
       />
       <label htmlFor="phone">Phone:</label>
       <input
