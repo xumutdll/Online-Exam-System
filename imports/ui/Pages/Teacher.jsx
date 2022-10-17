@@ -6,9 +6,11 @@ export const Teacher = () => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    Meteor.logout();
-    navigate("/start");
+    Meteor.logout((err) => {
+      !err ? navigate("/") : {};
+    });
   };
+
   return (
     <>
       <h1>Teacher</h1>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Meteor } from "meteor/meteor";
 import { useNavigate } from "react-router-dom";
 
@@ -6,9 +6,11 @@ export const Manager = () => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    Meteor.logout();
-    navigate("/start");
+    Meteor.logout((err) => {
+      !err ? navigate("/") : {};
+    });
   };
+
   return (
     <>
       <h1>Manager</h1>

@@ -10,7 +10,7 @@ export const Login = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    user && window.location.pathname == "/start"
+    user && window.location.pathname === "/"
       ? user.profile.role === "Manager"
         ? navigate("/manager")
         : user.profile.role === "Teacher"

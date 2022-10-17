@@ -1,5 +1,5 @@
-import React from "react";
-import { Routes, Route, NavLink, useNavigate } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Routes, Route, NavLink } from "react-router-dom";
 // import { useTracker } from "meteor/react-meteor-data";
 
 import { Start } from "./Pages/Start.jsx";
@@ -10,12 +10,10 @@ import { Teacher } from "./Pages/Teacher.jsx";
 import { Manager } from "./Pages/Manager.jsx";
 import { Student } from "./Pages/Student.jsx";
 
-const user = Meteor.user();
-
 export const App = () => {
   return (
     <Routes>
-      <Route path="/start" element={<Start />}>
+      <Route path="/" element={<Start />}>
         <Route index element={<Login />} />
         <Route path="register" element={<Register />} />
       </Route>

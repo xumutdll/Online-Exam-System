@@ -6,10 +6,10 @@ export const Start = () => {
   return (
     <div className="login">
       <div className="navlinks">
-        <NavLink end to="/start">
+        <NavLink end to="/">
           Login
         </NavLink>
-        <NavLink to="/start/register">Register</NavLink>
+        <NavLink to="/register">Register</NavLink>
       </div>
       <Outlet />
       <button onClick={() => Meteor.logout()} type="button">
