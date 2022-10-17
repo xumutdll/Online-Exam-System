@@ -3,6 +3,7 @@ import { Meteor } from "meteor/meteor";
 import { useNavigate } from "react-router-dom";
 
 export const Teacher = () => {
+  Meteor.subscribe("Teacher");
   const navigate = useNavigate();
 
   const handleLogout = () => {
