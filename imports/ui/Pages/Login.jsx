@@ -1,21 +1,30 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Meteor } from "meteor/meteor";
+import { useNavigate } from "react-router-dom";
 
 export const Login = () => {
   const [email, setEmail] = useState(() => "");
   const [password, setPassword] = useState(() => "");
 
+  const user = Meteor.user();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    user && window.location.pathname == "/start"
+      ? user.profile.role === "Manager"
+        ? navigate("/manager")
+        : user.profile.role === "Teacher"
+        ? navigate("/teacher")
+        : navigate("/student")
+      : {};
+  }, [user]);
+
   const handleLogin = (e) => {
     e.preventDefault();
 
     Meteor.loginWithPassword(email, password, (err) => {
-      !err ? {} : alert("Incorrect Credentials.");
+      !err ? (setEmail(""), setPassword("")) : alert("Incorrect Credentials.");
     });
-  };
-
-  const handleLogout = () => {
-    // Meteor.call("users.logout");
-    Meteor.logout();
   };
 
   return (
@@ -40,9 +49,6 @@ export const Login = () => {
         />
         <button type="submit">Login</button>
       </form>
-      <button onClick={handleLogout} type="button">
-        Logout
-      </button>
     </>
   );
 };
