@@ -9,6 +9,8 @@ import { NotFound } from "./Pages/NotFound.jsx";
 import { Teacher } from "./Pages/Teacher.jsx";
 import { Manager } from "./Pages/Manager.jsx";
 import { Student } from "./Pages/Student.jsx";
+import { Users } from "./Components/Manager/Users.jsx";
+import { Exams } from "./Components/Manager/Exams.jsx";
 
 export const App = () => {
   return (
@@ -17,11 +19,15 @@ export const App = () => {
         <Route index element={<Login />} />
         <Route path="register" element={<Register />} />
       </Route>
-      <Route path="/manager" element={<Manager />} />
+      <Route path="/manager" element={<Manager />}>
+        <Route index element={<Users />} />
+        <Route path="exams" element={<Exams />} />
+      </Route>
       <Route path="/teacher" element={<Teacher />} />
       <Route path="/student" element={<Student />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
+
     //  const user = useTracker(() => Meteor.user());
     // <>
     //   {user ? (

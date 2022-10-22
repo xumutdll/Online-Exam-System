@@ -47,4 +47,31 @@ Meteor.methods({
       // return "Succesfully registered."; // doesn't work
     }
   },
+  "users.update"(info) {
+    check(info, Object);
+    // const user = Meteor.users.findOne({ "emails.address": info.email });
+    // console.log(info.email);
+    // console.log(user);
+    if (
+      info.firstName === "" ||
+      info.lastName === "" ||
+      info.email === "" ||
+      info.phone === ""
+    )
+      return "Please fill the empty areas!";
+    else {
+      Meteor.users.update(
+        { _id: info._id },
+        {
+          $set: {
+            "profile.firstName": info.firstName,
+            "profile.lastName": info.lastName,
+            // "emails[0].address": info.email,
+            "profile.phone": info.phone,
+            "profile.role": info.role,
+          },
+        }
+      );
+    }
+  },
 });

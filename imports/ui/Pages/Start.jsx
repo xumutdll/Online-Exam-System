@@ -12,9 +12,6 @@ export const Start = () => {
         <NavLink to="/register">Register</NavLink>
       </div>
       <Outlet />
-      <button onClick={() => Meteor.logout()} type="button">
-        Logout
-      </button>
     </div>
   );
 };

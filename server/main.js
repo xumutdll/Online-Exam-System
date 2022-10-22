@@ -17,7 +17,7 @@ Meteor.publish(
   (publishUsers = () => {
     return Meteor.users.find({
       userId: this.userId,
-      "profile.role": { $ne: "Manager" },
+      "profile.role": "Student",
     });
   })
 );

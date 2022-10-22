@@ -1,0 +1,145 @@
+.container {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+}
+
+.header {
+  height: 50px;
+  width: 100%;
+  background-color: rgba(255, 127, 80, 0.415);
+  display: flex;
+  justify-content: space-between;
+  padding: 0 6px;
+}
+
+.header .right-side {
+  display: flex;
+  align-items: center;
+}
+
+.header .right-side span {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  border: 1px solid black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 6px;
+  cursor: pointer;
+}
+
+.header .right-side span.profile {
+  height: 40px;
+  width: fit-content;
+  border-radius: 1rem;
+  border: 1px solid black;
+  display: flex;
+  align-items: center;
+  padding: 0 6px;
+  margin: 0 6px;
+  cursor: pointer;
+}
+.header .right-side span.profile div {
+  width: fit-content;
+  margin: 0 2px;
+}
+
+.header .left-side {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.header .left-side .lefties {
+  height: 40px;
+  border: 1px solid black;
+  border-radius: 1rem;
+  display: flex;
+  align-items: center;
+  padding: 0 6px;
+  margin: 0 6px;
+  cursor: pointer;
+}
+
+.container .users {
+  padding: 6px;
+  display: flex;
+}
+
+.container .users ul {
+  border: 1px solid black;
+  width: 25%;
+  height: calc(100vh - 60px);
+  overflow-y: auto;
+  background-color: #ddd;
+}
+
+.container .users li {
+  width: 100%;
+  padding: 6px 12px 6px 12px;
+  margin: 1px 0;
+  background-color: #eee;
+}
+.container .users li.active {
+  background-color: rgba(0, 0, 255, 0.5);
+}
+/* .container .users li:active {
+  background-color: rgba(0, 0, 255, 0.5);
+} */
+
+.container .users .info {
+  height: calc(100vh - 60px);
+  width: 100%;
+  margin-left: 6px;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container .users .info .update-form {
+  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 60%;
+  margin: 10px;
+  padding: 4px;
+  padding-bottom: 8px;
+  width: fit-content;
+}
+.container .users .info .update-form .head {
+  display: flex;
+  width: 80%;
+  height: 40%;
+  align-items: center;
+  margin: 6px 0;
+}
+
+.container .users .info .update-form .head .img {
+  width: 25%;
+  height: 100%;
+  background-color: wheat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container .users .info .update-form .head .head-left {
+  display: flex;
+  flex-direction: column;
+}
+
+.container .users .info .update-form input {
+  padding: 6px 6px;
+  margin: 6px 10px;
+}
+
+.container .users .info .update-form button {
+  margin: 12px 0;
+  padding: 4px;
+  border-radius: 15%;
+  border: 1px solid black;
+}
