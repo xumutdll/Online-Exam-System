@@ -82,12 +82,9 @@
   margin: 1px 0;
   background-color: #eee;
 }
-.container .users li.active {
+.container .users li.chosen {
   background-color: rgba(0, 0, 255, 0.5);
 }
-/* .container .users li:active {
-  background-color: rgba(0, 0, 255, 0.5);
-} */
 
 .container .users .info {
   height: calc(100vh - 60px);
@@ -130,6 +127,13 @@
 .container .users .info .update-form .head .head-left {
   display: flex;
   flex-direction: column;
+}
+
+.container .users .info .update-form .head .head-left button {
+  background-color: red;
+}
+.container .users .info .update-form .head .head-left button.active {
+  background-color: green;
 }
 
 .container .users .info .update-form input {

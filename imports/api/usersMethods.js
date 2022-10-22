@@ -69,6 +69,7 @@ Meteor.methods({
             // "emails[0].address": info.email,
             "profile.phone": info.phone,
             "profile.role": info.role,
+            "profile.active": info.active,
           },
         }
       );

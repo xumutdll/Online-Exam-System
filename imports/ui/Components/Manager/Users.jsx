@@ -29,12 +29,13 @@ export const Users = () => {
 
     if (!prevActive) {
       setPrevActive(e.currentTarget);
-      e.currentTarget.className += "active";
+      e.currentTarget.className += "chosen";
       handleChange(id);
     } else {
-      setPrevActive(prevActive.classList.remove("active"));
+      // when you cahse the current user
+      setPrevActive(prevActive.classList.remove("chosen"));
       setPrevActive(e.currentTarget);
-      e.currentTarget.classList.add("active");
+      e.currentTarget.classList.add("chosen");
       handleChange(id);
     }
   };
@@ -47,15 +48,15 @@ export const Users = () => {
       email: selectedUser.emails[0].address,
       phone: selectedUser.profile.phone,
       createdAt: selectedUser.createdAt,
-      active: form.active,
+      active: !!selectedUser.profile.active
+        ? selectedUser.profile.active
+        : false,
     });
-    console.log(form);
   };
 
   const updateUser = () => {
     Meteor.call("users.update", form, (err, res) => {
       if (res === undefined) {
-        console.log(err);
         alert("Succesfully updated.");
       } else alert(res);
     });
@@ -91,11 +92,20 @@ export const Users = () => {
             <div className="head-left">
               <div>
                 <label htmlFor="activeStatus">Active:</label>
-                <input
-                  type="checkbox"
-                  name="activeStatus"
-                  onClick={(e) => setForm({ ...form, active: !form.active })}
-                />
+                {form.active ? (
+                  <button
+                    className="active"
+                    onClick={() => setForm({ ...form, active: !form.active })}
+                  >
+                    User is active!
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => setForm({ ...form, active: !form.active })}
+                  >
+                    User is not active!
+                  </button>
+                )}
               </div>
               {/* <div>Created At: {form.createdAt.toString()}</div> */}
               {form.createdAt && (
