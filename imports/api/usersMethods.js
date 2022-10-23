@@ -66,7 +66,7 @@ Meteor.methods({
           $set: {
             "profile.firstName": info.firstName,
             "profile.lastName": info.lastName,
-            // "emails[0].address": info.email,
+            emails: [{ address: info.email }],
             "profile.phone": info.phone,
             "profile.role": info.role,
             "profile.active": info.active,
