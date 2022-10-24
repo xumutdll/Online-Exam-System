@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Meteor } from "meteor/meteor";
 import { useTracker } from "meteor/react-meteor-data";
 import moment from "moment/moment";
@@ -16,10 +16,13 @@ export const Users = () => {
       role: "Student",
     };
   });
+  useEffect(() => {
+    Meteor.subscribe("Manager");
+    //subscribe on deployment
+  }, []);
 
   const userList = useTracker(() => {
-    Meteor.subscribe("Manager");
-    return Meteor.users.find().fetch();
+    return Meteor.users.find({ "profile.role": { $ne: "Manager" } }).fetch();
   });
 
   const handleClick = (e, id) => {
@@ -68,7 +71,7 @@ export const Users = () => {
     <div className="users">
       <ul>
         {userList.map((user) => {
-          if (user.profile.role === "Manager") return;
+          // if (user.profile.role === "Manager") return;
           return (
             <li onClick={(e) => handleClick(e, user._id)} key={user._id}>
               {user.profile.firstName} {user.profile.lastName}
@@ -114,9 +117,9 @@ export const Users = () => {
                   )}
                 </div>
 
-                <div class="dropdown">
-                  Role: <button class="dropbtn">{form.role}</button>
-                  <div class="dropdown-content">
+                <div className="dropdown">
+                  Role: <button className="dropbtn">{form.role}</button>
+                  <div className="dropdown-content">
                     <a onClick={() => setForm({ ...form, role: "Student" })}>
                       Student
                     </a>

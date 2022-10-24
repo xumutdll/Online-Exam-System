@@ -3,21 +3,14 @@ import "../imports/api/usersMethods";
 
 Meteor.startup(() => {});
 
-Meteor.publish(
-  "Manager",
-  (publishUsers = () => {
-    return Meteor.users.find({
-      userId: this.userId,
-    });
-  })
-);
+Meteor.publish("Manager", () => {
+  return Meteor.users.find({
+    "profile.role": { $ne: "Manager" },
+  });
+});
 
-Meteor.publish(
-  "Teacher",
-  (publishUsers = () => {
-    return Meteor.users.find({
-      userId: this.userId,
-      "profile.role": "Student",
-    });
-  })
-);
+Meteor.publish("Teacher", () => {
+  return Meteor.users.find({
+    "profile.role": "Teacher",
+  });
+});

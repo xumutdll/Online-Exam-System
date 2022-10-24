@@ -78,7 +78,7 @@
 }
 
 .container .users ul {
-  border: 1px solid black;
+  border: 1px solid rgba(0, 0, 0, 0.4);
   width: 25%;
   height: calc(100vh - 60px);
   overflow-y: auto;
@@ -224,12 +224,13 @@
   position: absolute;
   background-color: #f9f9f9;
   min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
 }
 
 .users .dropdown-content a {
-  border: 1px solid rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(0, 0, 0, 0.4);
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+
   color: black;
   background-color: white;
   padding: 12px 16px;
@@ -248,4 +249,36 @@
 
 .users .dropdown:hover .dropbtn {
   background-color: rgb(128, 128, 128);
+}
+
+.exams {
+  padding: 6px;
+  display: flex;
+}
+.container .exams ul {
+  border: 1px solid rgba(0, 0, 0, 0.4);
+  width: 20%;
+  height: calc(100vh - 60px);
+  overflow-y: auto;
+  background-color: #ddd;
+}
+.container .exams li {
+  width: 100%;
+  padding: 6px 12px 6px 12px;
+  margin: 1px 0;
+  background-color: #eee;
+}
+.container .exams li.chosen {
+  background-color: rgba(0, 0, 255, 0.5);
+}
+.exams .the-questions {
+  background-color: white;
+  margin-left: 6px;
+  width: 30%;
+  height: 100%;
+}
+.exams .the-exams {
+  background-color: white;
+  margin-left: 6px;
+  flex: 1;
 }

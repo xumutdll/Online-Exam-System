@@ -71,9 +71,7 @@ export const Manager = () => {
           </NavLink>
         </div>
       </div>
-      <div className="playgorund">
-        <Outlet />
-      </div>
+      <Outlet />
     </div>
   );
 };
