@@ -77,32 +77,15 @@
   display: flex;
 }
 
-.container .users ul {
-  border: 1px solid rgba(0, 0, 0, 0.4);
-  width: 25%;
-  height: calc(100vh - 60px);
-  overflow-y: auto;
-  background-color: #ddd;
-}
-
-.container .users li {
-  width: 100%;
-  padding: 6px 12px 6px 12px;
-  margin: 1px 0;
-  background-color: #eee;
-}
-.container .users li.chosen {
-  background-color: rgba(0, 0, 255, 0.5);
-}
-
 .container .users .info {
   height: calc(100vh - 60px);
-  width: 100%;
+  flex: 1;
   margin-left: 6px;
   background-color: white;
   display: flex;
   justify-content: center;
   align-items: center;
+  border-radius: 1rem;
 }
 
 .container .users .info .update-form {
@@ -255,30 +238,17 @@
   padding: 6px;
   display: flex;
 }
-.container .exams ul {
-  border: 1px solid rgba(0, 0, 0, 0.4);
-  width: 20%;
-  height: calc(100vh - 60px);
-  overflow-y: auto;
-  background-color: #ddd;
-}
-.container .exams li {
-  width: 100%;
-  padding: 6px 12px 6px 12px;
-  margin: 1px 0;
-  background-color: #eee;
-}
-.container .exams li.chosen {
-  background-color: rgba(0, 0, 255, 0.5);
-}
+
 .exams .the-questions {
   background-color: white;
   margin-left: 6px;
   width: 30%;
   height: 100%;
+  border-radius: 1rem;
 }
 .exams .the-exams {
   background-color: white;
   margin-left: 6px;
   flex: 1;
+  border-radius: 1rem;
 }

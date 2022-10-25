@@ -9,8 +9,12 @@ Meteor.publish("Manager", () => {
   });
 });
 
-Meteor.publish("Teacher", () => {
-  return Meteor.users.find({
-    "profile.role": "Teacher",
-  });
-});
+// Meteor.publish("Teacher", () => {
+//   let q = Meteor.users.find({
+//     "profile.role": "Teacher",
+//   });
+
+//   console.log(q.count());
+
+//   return q;
+// });

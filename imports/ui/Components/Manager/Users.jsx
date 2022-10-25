@@ -2,10 +2,9 @@ import React, { useState, useEffect } from "react";
 import { Meteor } from "meteor/meteor";
 import { useTracker } from "meteor/react-meteor-data";
 import moment from "moment/moment";
-// import "bootstrap/dist/css/bootstrap.min.css";
+import { UserList } from "../../../common/UserList";
 
 export const Users = () => {
-  const [prevActive, setPrevActive] = useState(() => null);
   const [form, setForm] = useState(() => {
     return {
       firstName: "",
@@ -25,24 +24,6 @@ export const Users = () => {
     return Meteor.users.find({ "profile.role": { $ne: "Manager" } }).fetch();
   });
 
-  const handleClick = (e, id) => {
-    // document.getElementById("MyElement").classList.add('MyClass');
-    // document.getElementById("MyElement").classList.remove('MyClass');
-    // if ( document.getElementById("MyElement").classList.contains('MyClass') )
-    // document.getElementById("MyElement").classList.toggle('MyClass');
-
-    if (!prevActive) {
-      setPrevActive(e.currentTarget);
-      e.currentTarget.className += "chosen";
-      handleChange(id);
-    } else {
-      // when you cahse the current user
-      setPrevActive(prevActive.classList.remove("chosen"));
-      setPrevActive(e.currentTarget);
-      e.currentTarget.classList.add("chosen");
-      handleChange(id);
-    }
-  };
   const handleChange = (id) => {
     let selectedUser = Meteor.users.findOne({ _id: id });
     setForm({
@@ -69,30 +50,9 @@ export const Users = () => {
 
   return (
     <div className="users">
-      <ul>
-        {userList.map((user) => {
-          // if (user.profile.role === "Manager") return;
-          return (
-            <li onClick={(e) => handleClick(e, user._id)} key={user._id}>
-              {user.profile.firstName} {user.profile.lastName}
-              {" : "}
-              {user.profile.role}
-            </li>
-          );
-        })}
-        <li>adasasa</li>
-        <li>adasasa</li>
-        <li>adasasa</li>
-        <li>adasasa</li>
-        <li>adasasa</li>
-        <li>adasasa</li>
-        <li>adasasa</li>
-        <li>adasasa</li>
-        <li>adasasa</li>
-      </ul>
-
+      <UserList userList={userList} handleChange={(id) => handleChange(id)} />
       <div className="info">
-        {!prevActive ? (
+        {!form._id ? (
           <></>
         ) : (
           <div className="update-form">

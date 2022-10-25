@@ -2,34 +2,22 @@ import React, { useState, useEffect } from "react";
 import { Meteor } from "meteor/meteor";
 import { useTracker } from "meteor/react-meteor-data";
 
+import { UserList } from "../../../common/UserList";
+import { ModalContainer } from "../../../common/ModalContainer";
+import { FormCreateQuestion } from "../../../common/FormCreateQuestion";
+import { FormCreateExam } from "../../../common/FormCreateExam";
+
 export const Exams = () => {
-  const [prevActive, setPrevActive] = useState(() => null);
   const [teacherId, setTeacherId] = useState(() => null);
   const food = document.createElement("div");
 
   useEffect(() => {
-    Meteor.subscribe("Teacher");
-    //subscribe on deployment
-    console.log("first");
+    Meteor.subscribe("Manager");
   }, []);
 
   const userList = useTracker(() => {
-    return Meteor.users.find().fetch();
+    return Meteor.users.find({ "profile.role": "Teacher" }).fetch();
   });
-
-  const handleClick = (e, id) => {
-    if (!prevActive) {
-      setPrevActive(e.currentTarget);
-      e.currentTarget.className += "chosen";
-      handleChange(id);
-    } else {
-      // when you cahse the current user
-      setPrevActive(prevActive.classList.remove("chosen"));
-      setPrevActive(e.currentTarget);
-      e.currentTarget.classList.add("chosen");
-      handleChange(id);
-    }
-  };
 
   const createQuestion = () => {};
 
@@ -37,24 +25,15 @@ export const Exams = () => {
 
   return (
     <div className="exams">
-      <ul>
-        {userList.map((user) => {
-          return (
-            <li onClick={(e) => handleClick(e, user._id)} key={user._id}>
-              {user.profile.firstName} {user.profile.lastName}
-              {" : "}
-              {user.profile.role}
-            </li>
-          );
-        })}
-      </ul>
-      <div className="the-exams"></div>
+      <UserList userList={userList} handleChange={(id) => handleChange(id)} />
+      <div className="the-exams">
+        <ModalContainer content={<FormCreateExam />} />
+      </div>
       <div className="the-questions">
+        <ModalContainer content={<FormCreateQuestion />} />
         <div className="a-question">
           <div className="expression"></div>
-          <div className="pool">
-            <button onClick={createQuestion}>Create a new question.</button>
-          </div>
+          <div className="pool"></div>
         </div>
       </div>
     </div>
