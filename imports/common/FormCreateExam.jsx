@@ -2,5 +2,5 @@ import React from "react";
 import "./css/FormCreateExam.css";
 
 export const FormCreateExam = () => {
-  return <div className="question-form">Exam Form</div>;
+  return <div className="create-exam-form">Exam Form</div>;
 };

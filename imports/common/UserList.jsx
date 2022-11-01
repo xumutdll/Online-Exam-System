@@ -16,7 +16,7 @@ export const UserList = ({ userList, handleChange }) => {
       handleChange(id);
     } else {
       // when you cahse the current user
-      setPrevActive(prevActive.classList.remove("chosen"));
+      prevActive.classList.remove("chosen");
       setPrevActive(e.currentTarget);
       e.currentTarget.classList.add("chosen");
       handleChange(id);

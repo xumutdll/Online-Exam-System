@@ -7,14 +7,6 @@
 .modal-button button {
   width: 60%;
   height: 35px;
-  background-color: rgba(34, 226, 0);
-  border-radius: 1rem;
+  background-color: rgba(34, 226, 30);
   margin-top: 3px;
-}
-.modal-container {
-  margin: 25px;
-  width: 45vw;
-  height: 35vw;
-
-  background-color: blue;
 }

@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Meteor } from "meteor/meteor";
 import { useTracker } from "meteor/react-meteor-data";
 import moment from "moment/moment";
-import { UserList } from "../../../common/UserList";
+
+import { UserList } from "../../../Common/UserList";
 
 export const Users = () => {
   const [form, setForm] = useState(() => {
@@ -52,9 +53,7 @@ export const Users = () => {
     <div className="users">
       <UserList userList={userList} handleChange={(id) => handleChange(id)} />
       <div className="info">
-        {!form._id ? (
-          <></>
-        ) : (
+        {!!form._id && (
           <div className="update-form">
             <div className="head">
               <div className="img">image area</div>

@@ -19,8 +19,7 @@ export const ModalContainer = ({ content }) => {
           : ""}
       </button>
       <Modal open={open} onClose={onCloseModal} center>
-        <div className="modal-container">{content}</div>
-        <div className="submit"></div>
+        {content}
       </Modal>
     </div>
   );

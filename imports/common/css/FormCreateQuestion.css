@@ -1,0 +1,92 @@
+.create-question-form {
+  margin: 30px;
+  width: 45vw;
+  height: 35vw;
+  padding: 0 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+.create-question-form .question-head {
+  display: flex;
+  max-height: fit-content;
+}
+.create-question-form .question-head > div {
+  flex: 1;
+  height: 8vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(128, 128, 128, 0.5);
+  cursor: pointer;
+}
+
+.create-question-form .question-head textarea.problem {
+  flex: 60%;
+  height: 8vw;
+  max-height: 11vw;
+  font-size: larger;
+  margin-right: 10px;
+  margin: 0;
+  margin-right: 10px;
+  transition: all 0ms;
+}
+
+.create-question-form .options {
+  display: flex;
+  flex-direction: column;
+  padding: 12px 0;
+}
+
+.create-question-form .options button {
+  background-color: rgba(34, 226, 30);
+  margin-top: 12px;
+  width: fit-content;
+}
+
+.create-question-form .options .option {
+  padding: 6px 8px;
+  border-radius: 1rem;
+  border: 1px solid rgba(0, 0, 0, 0.4);
+  display: flex;
+  width: fit-content;
+  justify-content: space-between;
+  align-items: center;
+  margin: 6px 0;
+}
+
+.create-question-form .options .chosen {
+  background-color: rgba(0, 0, 255, 0.5);
+}
+
+.create-question-form .options .option h3 {
+  margin-right: 12px;
+}
+
+.create-question-form .options .mini-option-form {
+  display: block;
+}
+.create-question-form .options .mini-option-form input {
+  margin-right: 6px;
+  min-width: fit-content;
+}
+.create-question-form .filler {
+  flex: 1;
+}
+.create-question-form .end {
+  align-self: flex-end;
+  width: 25%;
+}
+.create-question-form .end .point {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+.create-question-form .end input {
+  width: 60%;
+}
+.create-question-form .save {
+  display: flex;
+  flex-direction: column;
+}

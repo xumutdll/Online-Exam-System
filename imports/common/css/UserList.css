@@ -13,6 +13,7 @@ ul.user-list li {
   margin: 1px 0;
   background-color: #eee;
 }
+
 ul.user-list li.chosen {
   background-color: rgba(0, 0, 255, 0.5);
 }
