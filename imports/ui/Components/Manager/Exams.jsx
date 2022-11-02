@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react";
 import { Meteor } from "meteor/meteor";
 import { useTracker } from "meteor/react-meteor-data";
 
-import { UserList } from "../../../Common/UserList";
-import { ModalContainer } from "../../../Common/ModalContainer";
-import { FormCreateQuestion } from "../../../Common/FormCreateQuestion";
-import { FormCreateExam } from "../../../Common/FormCreateExam";
+import { UserList } from "/imports/common/UserList";
+import { ModalContainer } from "../../../common/ModalContainer";
+import { FormCreateQuestion } from "../../../common/FormCreateQuestion";
+import { FormCreateExam } from "../../../common/FormCreateExam";
 import { Questions } from "../../../api/Collections";
 
 export const Exams = () => {

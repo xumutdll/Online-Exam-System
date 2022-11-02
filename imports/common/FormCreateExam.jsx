@@ -45,25 +45,25 @@ export const FormCreateExam = ({ teacherId }) => {
       />
       <label htmlFor="startDate">Start Date:</label>
       <div className="date-time-picker-wrapper">
-        <DateTimePicker
+        {/* <DateTimePicker
           onChange={setExam}
           value={exam.startDate}
           minDate={new Date()}
-        />
+        /> */}
       </div>
       <label htmlFor="endDate">End Date:</label>
       <div className="date-time-picker-wrapper">
-        <DateTimePicker
+        {/* <DateTimePicker
           onChange={setExam}
           value={exam.endDate}
           minDate={new Date()}
-        />
+        /> */}
       </div>
       <label htmlFor="duration">Duration:</label>
-      <DurationPicker
+      {/* <DurationPicker
         onChange={onChange}
         initialDuration={{ hours: 1, minutes: 2, seconds: 3 }}
-      />
+      /> */}
       <button onClick={handleSave}>Save</button>
     </div>
   );
