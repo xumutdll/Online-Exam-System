@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Meteor } from "meteor/meteor";
 import "./css/FormCreateQuestion.css";
 import { nanoid } from "nanoid";
@@ -62,7 +62,6 @@ export const FormCreateQuestion = ({ teacherId }) => {
       if (prev.index === "") {
         alert("Please mark an option as correct.");
       } else if (res === "Question successfully inserted!") {
-        alert(res);
         setPrev({ active: null, index: "" });
         setQuestion({
           problem: "",
@@ -76,6 +75,7 @@ export const FormCreateQuestion = ({ teacherId }) => {
             _id: Meteor.user() && Meteor.userId(),
           },
         });
+        alert(res);
       } else {
         alert("warning");
       }

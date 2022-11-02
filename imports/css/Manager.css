@@ -265,3 +265,7 @@
   display: inline;
   margin-right: 12px;
 }
+.exams .date-time-picker-wrapper {
+  margin: 6px;
+  border-radius: 1rem;
+}

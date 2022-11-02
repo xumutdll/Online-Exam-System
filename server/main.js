@@ -1,8 +1,9 @@
 import { Meteor } from "meteor/meteor";
 import { check } from "meteor/check";
 import { Accounts } from "meteor/accounts-base";
-import { Mongo } from "meteor/mongo";
+
 import { Questions } from "../imports/api/Collections";
+import { Exams } from "../imports/api/Collections";
 
 Meteor.startup(() => {});
 
@@ -85,11 +86,24 @@ Meteor.methods({
     // console.log(info.email);
     // console.log(user);
     Questions.insert(question);
-    return "Question successfully inserted!";
+    return "Question has successfully inserted!";
   },
   "questions.delete"(questionId) {
     check(questionId, String);
     Questions.remove(questionId);
+  },
+
+  "exams.insert"(exam) {
+    check(exam, Object);
+    // const user = Meteor.users.findOne({ "emails.address": info.email });
+    // console.log(info.email);
+    // console.log(user);
+    Exams.insert(exam);
+    return "Exam has successfully inserted!";
+  },
+  "questions.delete"(examId) {
+    check(examId, String);
+    Exams.remove(examId);
   },
 });
 
@@ -100,6 +114,11 @@ Meteor.publish("Manager", () => {
 });
 
 Meteor.publish("Questions", (teacherId) => {
+  if (!!teacherId === false) return;
+  return Questions.find({ teacherId: teacherId });
+});
+
+Meteor.publish("Exams", (teacherId) => {
   if (!!teacherId === false) return;
   return Questions.find({ teacherId: teacherId });
 });

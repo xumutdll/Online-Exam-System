@@ -1,2 +1,14 @@
 .create-exam-form {
+  margin: 30px;
+  width: 30vw;
+  height: 30vw;
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.create-exam-form > button {
+  margin-top: 30px;
+  width: 20%;
+  margin-left: auto;
 }

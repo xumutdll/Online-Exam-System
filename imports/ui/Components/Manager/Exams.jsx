@@ -41,7 +41,9 @@ export const Exams = () => {
       {!!teacherId && (
         <>
           <div className="the-exams">
-            <ModalContainer content={<FormCreateExam />} />
+            <ModalContainer
+              content={<FormCreateExam teacherId={teacherId} />}
+            />
           </div>
 
           <div className="the-questions">
@@ -70,8 +72,14 @@ export const Exams = () => {
                     <div className="pool">
                       {question.options.map((option, index) => {
                         return (
-                          <div className="an-option">
-                            <h3>
+                          <div key={option._id} className="an-option">
+                            <h3
+                              style={
+                                option.isTrue
+                                  ? { color: "red" }
+                                  : { color: "black" }
+                              }
+                            >
                               {index === 0
                                 ? "A"
                                 : index === 1
