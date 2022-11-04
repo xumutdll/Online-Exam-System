@@ -12,3 +12,25 @@
   width: 20%;
   margin-left: auto;
 }
+
+.create-exam-form .date-time-picker-wrapper {
+  margin: 10px 6px;
+  border-radius: 1rem;
+}
+
+.create-exam-form .duration {
+  margin: 4px 4px 6px 0;
+  padding: 6px 10px;
+}
+.create-exam-form .duration input[type="number"] {
+  display: inline;
+  transition: all 0.3s ease-in-out;
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -ms-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  padding: 6px 10px;
+  outline: none;
+  border: 1px solid rgba(81, 203, 238, 1);
+  border-radius: 1rem;
+}

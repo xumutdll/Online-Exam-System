@@ -2,8 +2,8 @@ import { Meteor } from "meteor/meteor";
 import { check } from "meteor/check";
 import { Accounts } from "meteor/accounts-base";
 
-import { Questions } from "../imports/api/Collections";
-import { Exams } from "../imports/api/Collections";
+import { QuestionsList } from "../imports/api/Collections";
+import { ExamsList } from "../imports/api/Collections";
 
 Meteor.startup(() => {});
 
@@ -80,30 +80,30 @@ Meteor.methods({
       );
     }
   },
+
   "questions.insert"(question) {
     check(question, Object);
-    // const user = Meteor.users.findOne({ "emails.address": info.email });
-    // console.log(info.email);
-    // console.log(user);
-    Questions.insert(question);
+
+    QuestionsList.insert(question);
     return "Question has successfully inserted!";
   },
+
   "questions.delete"(questionId) {
     check(questionId, String);
-    Questions.remove(questionId);
+    QuestionsList.remove(questionId);
   },
 
   "exams.insert"(exam) {
     check(exam, Object);
-    // const user = Meteor.users.findOne({ "emails.address": info.email });
-    // console.log(info.email);
-    // console.log(user);
-    Exams.insert(exam);
-    return "Exam has successfully inserted!";
+    if (exam.startDate.getTime() < exam.endDate.getTime()) {
+      ExamsList.insert(exam);
+      return "Exam has successfully inserted!";
+    }
+    return "The start date of the exam cannot be earlier than the end date of the exam!";
   },
-  "questions.delete"(examId) {
+  "exams.delete"(examId) {
     check(examId, String);
-    Exams.remove(examId);
+    ExamsList.remove(examId);
   },
 });
 
@@ -115,13 +115,14 @@ Meteor.publish("Manager", () => {
 
 Meteor.publish("Questions", (teacherId) => {
   if (!!teacherId === false) return;
-  return Questions.find({ teacherId: teacherId });
+  return QuestionsList.find({ teacherId: teacherId });
 });
 
 Meteor.publish("Exams", (teacherId) => {
   if (!!teacherId === false) return;
-  return Questions.find({ teacherId: teacherId });
+  return ExamsList.find({ teacherId: teacherId });
 });
+
 // Meteor.publish("Teacher", () => {
 //   let q = Meteor.users.find({
 //     "profile.role": "Teacher",

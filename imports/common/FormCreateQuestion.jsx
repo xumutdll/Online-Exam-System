@@ -58,28 +58,28 @@ export const FormCreateQuestion = ({ teacherId }) => {
   };
 
   const handleSubmit = () => {
-    Meteor.call("questions.insert", question, (err, res) => {
-      if (prev.index === "") {
-        alert("Please mark an option as correct.");
-      } else if (res === "Question successfully inserted!") {
-        setPrev({ active: null, index: "" });
-        setQuestion({
-          problem: "",
-          options: [],
-          point: "",
-          teacherId: teacherId,
-          creator: {
-            name: `${Meteor.user() && Meteor.user().profile.firstName} ${
-              Meteor.user() && Meteor.user().profile.lastName
-            }`,
-            _id: Meteor.user() && Meteor.userId(),
-          },
-        });
-        alert(res);
-      } else {
-        alert("warning");
-      }
-    });
+    if (prev.index === "") {
+      alert("Please mark an option as correct.");
+    } else {
+      Meteor.call("questions.insert", question, (err, res) => {
+        if (res === "Question successfully inserted!") {
+          setPrev({ active: null, index: "" });
+          setQuestion({
+            problem: "",
+            options: [],
+            point: "",
+            teacherId: teacherId,
+            creator: {
+              name: `${Meteor.user() && Meteor.user().profile.firstName} ${
+                Meteor.user() && Meteor.user().profile.lastName
+              }`,
+              _id: Meteor.user() && Meteor.userId(),
+            },
+          });
+          alert(res);
+        }
+      });
+    }
   };
 
   return (

@@ -6,7 +6,8 @@ import { UserList } from "/imports/common/UserList";
 import { ModalContainer } from "../../../common/ModalContainer";
 import { FormCreateQuestion } from "../../../common/FormCreateQuestion";
 import { FormCreateExam } from "../../../common/FormCreateExam";
-import { Questions } from "../../../api/Collections";
+import { QuestionsList } from "../../../api/Collections";
+import { ExamsList } from "../../../api/Collections";
 
 export const Exams = () => {
   const [teacherId, setTeacherId] = useState(() => null);
@@ -14,25 +15,32 @@ export const Exams = () => {
 
   useEffect(() => {
     Meteor.subscribe("Questions", teacherId);
+    Meteor.subscribe("Exams", teacherId);
   }, [teacherId]);
 
   useEffect(() => {
     Meteor.subscribe("Manager");
-    Meteor.subscribe("Questions");
   }, []);
 
   const userList = useTracker(() => {
     return Meteor.users.find({ "profile.role": "Teacher" }).fetch();
   });
   const questionList = useTracker(() => {
-    return Questions.find({ teacherId: teacherId }).fetch();
+    return QuestionsList.find({ teacherId: teacherId }).fetch();
+  });
+  const examList = useTracker(() => {
+    console.log(ExamsList.find().fetch());
+    return ExamsList.find({ teacherId: teacherId }).fetch();
   });
 
   // const handleChange = (id) => {
   //   setTeacherId(id);
   // };
   const handleDelete = (id) => {
-    Meteor.call("questions.delete", id);
+    Meteor.call("questions.delete", id, (err, res) => {
+      console.log(err);
+      console.log(res);
+    });
   };
 
   return (
@@ -44,6 +52,9 @@ export const Exams = () => {
             <ModalContainer
               content={<FormCreateExam teacherId={teacherId} />}
             />
+            {examList.map((exam) => {
+              return exam.name;
+            })}
           </div>
 
           <div className="the-questions">

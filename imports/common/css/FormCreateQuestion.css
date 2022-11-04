@@ -70,9 +70,7 @@
   margin-right: 6px;
   min-width: fit-content;
 }
-.create-question-form .filler {
-  flex: 1;
-}
+
 .create-question-form .end {
   align-self: flex-end;
   width: 25%;
