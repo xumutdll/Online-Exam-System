@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./css/FormCreateExam.css";
 import moment from "moment";
 
 import DateTimePicker from "react-datetime-picker";
 
-export const FormCreateExam = ({ teacherId }) => {
+export const FormCreateExam = ({ teacherId, theExam }) => {
   const [exam, setExam] = useState(() => {
     return {
       name: "",
@@ -22,25 +22,50 @@ export const FormCreateExam = ({ teacherId }) => {
   });
 
   const handleSave = () => {
-    Meteor.call("exams.insert", exam, (err, res) => {
-      if (res === "Exam has successfully inserted!") {
-        setExam({
-          name: "",
-          description: "",
-          startDate: new Date(),
-          endDate: new Date(),
-          duration: "",
-          status: "pending",
-          questions: [],
-          teacherId: teacherId,
-          students: [],
-          numberOfStudents: 0,
-          createdAt: moment()._d,
-        });
+    if (!!theExam) {
+      Meteor.call("exams.update", exam, (err, res) => {
+        if (res === "Exam has successfully inserted!") {
+          setExam({
+            name: "",
+            description: "",
+            startDate: new Date(),
+            endDate: new Date(),
+            duration: "",
+            status: "pending",
+            questions: [],
+            teacherId: teacherId,
+            students: [],
+            numberOfStudents: 0,
+            createdAt: moment()._d,
+          });
+        }
         alert(res);
-      }
-    });
+      });
+    } else {
+      Meteor.call("exams.insert", exam, (err, res) => {
+        if (res === "Exam has successfully inserted!") {
+          setExam({
+            name: "",
+            description: "",
+            startDate: new Date(),
+            endDate: new Date(),
+            duration: "",
+            status: "pending",
+            questions: [],
+            teacherId: teacherId,
+            students: [],
+            numberOfStudents: 0,
+            createdAt: moment()._d,
+          });
+        }
+        alert(res);
+      });
+    }
   };
+
+  useEffect(() => {
+    !!theExam && setExam(theExam);
+  }, []);
 
   return (
     <div className="create-exam-form">

@@ -223,7 +223,6 @@
   background-color: white;
   margin-left: 6px;
   width: 30%;
-  height: 100%;
   border-radius: 1rem;
   overflow-y: auto;
 }
@@ -233,6 +232,7 @@
   margin-left: 6px;
   flex: 1;
   border-radius: 1rem;
+  overflow-y: auto;
 }
 .exams .the-questions .a-question {
   margin: 12px 0 12px 8px;
@@ -257,10 +257,6 @@
   margin-left: 2px;
   width: 40px;
 }
-.exams .the-questions .a-question .expression .buttons .update {
-  border-radius: 0 1rem 0 0;
-  background-color: rgba(34, 226, 30);
-}
 .exams .the-questions .a-question .expression .buttons .delete {
   background-color: #e3242b;
   height: 32px;
@@ -275,4 +271,37 @@
 .exams .the-questions .a-question .pool .an-option h3 {
   display: inline;
   margin-right: 12px;
+}
+
+.exams .the-exams .a-exam {
+  margin: 12px 0 12px 8px;
+  border: 1px solid rgba(0, 0, 0, 0.4);
+  border-radius: 1rem;
+  padding: 4px;
+}
+
+.exams .the-exams .a-exam .name-description {
+  display: flex;
+  justify-content: space-between;
+  border-radius: 1rem;
+  padding-left: 4px;
+  height: fit-content;
+}
+.exams .the-exams .a-exam .name-description .buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.exams .the-exams .a-exam .name-description .side-buttons {
+  width: 40px;
+  margin-left: 4px;
+}
+.exams .the-exams .a-exam .name-description .side-buttons button {
+  width: 100%;
+  color: white;
+}
+.exams .the-exams .a-exam .name-description .side-buttons .delete {
+  background-color: #e3242b;
+  height: 32px;
+  margin-top: 3px;
 }

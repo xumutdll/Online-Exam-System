@@ -112,6 +112,13 @@ Meteor.methods({
   "exams.delete"(examId) {
     check(examId, String);
     ExamsList.remove(examId);
+    return "Succesfully deleted!";
+  },
+  "exams.update"(exam) {
+    check(exam, Object);
+
+    ExamsList.update({ _id: exam._id }, exam);
+    return "Exam is succesfully updated!";
   },
 });
 

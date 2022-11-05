@@ -12,7 +12,7 @@ export const ModalContainer = ({ content }) => {
   return (
     <div className="modal-button">
       <button onClick={() => setOpen(true)}>
-        {content.type.name === "FormCreateExam" ? (
+        {content.type.name === "FormCreateExam" && !content.props.theExam ? (
           "Create a new exam"
         ) : content.type.name === "FormCreateQuestion" &&
           !content.props.theQuestion ? (

@@ -14,7 +14,8 @@ import { ExamsList } from "../../../api/Collections";
 
 export const Exams = () => {
   const [teacherId, setTeacherId] = useState(() => null);
-  const [targetId, setTargetId] = useState(() => "");
+  const [targetedQuestionId, setTargetedQuestionId] = useState(() => "");
+  const [targetedExamId, setTargetedExamId] = useState(() => "");
 
   // const [open, setOpen] = useState(false);
 
@@ -37,8 +38,14 @@ export const Exams = () => {
     return ExamsList.find({ teacherId: teacherId }).fetch();
   });
 
-  const handleDelete = (QuestionId) => {
-    Meteor.call("questions.delete", QuestionId, (err, res) => {
+  const handleQuestionDelete = (questionId) => {
+    Meteor.call("questions.delete", questionId, (err, res) => {
+      alert(res);
+    });
+  };
+
+  const handleExamDelete = (examId) => {
+    Meteor.call("exams.delete", examId, (err, res) => {
       alert(res);
     });
   };
@@ -53,7 +60,44 @@ export const Exams = () => {
               content={<FormCreateExam teacherId={teacherId} />}
             />
             {examList.map((exam) => {
-              return exam.name;
+              return (
+                <div
+                  key={exam._id}
+                  onMouseEnter={() => setTargetedExamId(exam._id)}
+                  onMouseLeave={() => setTargetedExamId("")}
+                  className="a-exam"
+                >
+                  <div className="name-description">
+                    <div>
+                      {exam.name}
+                      <br />
+                      {exam.description}
+                    </div>
+                    {/* <button className="add-student"></button> */}
+                    <div className="buttons">
+                      <button className="add-student"></button>
+                      <div className="side-buttons">
+                        <ModalContainer
+                          content={
+                            <FormCreateExam
+                              teacherId={teacherId}
+                              theExam={examList.find(
+                                (obj) => obj._id === exam._id
+                              )}
+                            />
+                          }
+                        />
+                        <button
+                          className="delete"
+                          onClick={() => handleExamDelete(exam._id)}
+                        >
+                          X
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              );
             })}
           </div>
 
@@ -66,11 +110,11 @@ export const Exams = () => {
                 <div
                   key={question._id}
                   className="a-question"
-                  onMouseEnter={() => setTargetId(question._id)}
-                  onMouseLeave={() => setTargetId("")}
+                  onMouseEnter={() => setTargetedQuestionId(question._id)}
+                  onMouseLeave={() => setTargetedQuestionId("")}
                 >
                   <div className="expression">
-                    {targetId === question._id ? (
+                    {targetedQuestionId === question._id ? (
                       question.problem
                     ) : (
                       <>
@@ -94,13 +138,13 @@ export const Exams = () => {
                       />
                       <button
                         className="delete"
-                        onClick={() => handleDelete(question._id)}
+                        onClick={() => handleQuestionDelete(question._id)}
                       >
                         X
                       </button>
                     </div>
                   </div>
-                  {targetId === question._id && (
+                  {targetedQuestionId === question._id && (
                     <div className="pool">
                       {question.options.map((option, index) => {
                         return (
