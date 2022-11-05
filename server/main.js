@@ -85,12 +85,20 @@ Meteor.methods({
     check(question, Object);
 
     QuestionsList.insert(question);
-    return "Question has successfully inserted!";
+    return "Question is successfully inserted!";
   },
 
   "questions.delete"(questionId) {
     check(questionId, String);
     QuestionsList.remove(questionId);
+    return "Succesfully deleted!";
+  },
+
+  "questions.update"(question) {
+    check(question, Object);
+
+    QuestionsList.update({ _id: question._id }, question);
+    return "Question is succesfully updated!";
   },
 
   "exams.insert"(exam) {

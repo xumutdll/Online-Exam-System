@@ -245,15 +245,26 @@
   justify-content: space-between;
   border-radius: 1rem;
   padding-left: 4px;
-  height: 55px;
+  height: fit-content;
 }
-.exams .the-questions .a-question .expression button {
-  height: 100%;
+.exams .the-questions .a-question .expression .buttons {
+  width: 40px;
+}
+.exams .the-questions .a-question .expression .buttons button {
   outline: 1px solid rgba(0, 0, 0, 0.4);
-  border: 0;
-  border-radius: 0 1rem 1rem 0;
-  background-color: #e3242b;
   color: white;
+  border: 0;
+  margin-left: 2px;
+  width: 40px;
+}
+.exams .the-questions .a-question .expression .buttons .update {
+  border-radius: 0 1rem 0 0;
+  background-color: rgba(34, 226, 30);
+}
+.exams .the-questions .a-question .expression .buttons .delete {
+  background-color: #e3242b;
+  height: 32px;
+  margin-top: 3px;
 }
 
 .exams .the-questions .a-question .pool {

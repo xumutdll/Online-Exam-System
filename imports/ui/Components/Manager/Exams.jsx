@@ -9,9 +9,14 @@ import { FormCreateExam } from "../../../common/FormCreateExam";
 import { QuestionsList } from "../../../api/Collections";
 import { ExamsList } from "../../../api/Collections";
 
+// import "react-responsive-modal/styles.css";
+// import { Modal } from "react-responsive-modal";
+
 export const Exams = () => {
   const [teacherId, setTeacherId] = useState(() => null);
   const [targetId, setTargetId] = useState(() => "");
+
+  // const [open, setOpen] = useState(false);
 
   useEffect(() => {
     Meteor.subscribe("Questions", teacherId);
@@ -29,17 +34,12 @@ export const Exams = () => {
     return QuestionsList.find({ teacherId: teacherId }).fetch();
   });
   const examList = useTracker(() => {
-    console.log(ExamsList.find().fetch());
     return ExamsList.find({ teacherId: teacherId }).fetch();
   });
 
-  // const handleChange = (id) => {
-  //   setTeacherId(id);
-  // };
-  const handleDelete = (id) => {
-    Meteor.call("questions.delete", id, (err, res) => {
-      console.log(err);
-      console.log(res);
+  const handleDelete = (QuestionId) => {
+    Meteor.call("questions.delete", QuestionId, (err, res) => {
+      alert(res);
     });
   };
 
@@ -70,14 +70,35 @@ export const Exams = () => {
                   onMouseLeave={() => setTargetId("")}
                 >
                   <div className="expression">
-                    {question.problem.substr(
-                      0,
-                      Math.min(120, question.problem.lastIndexOf(" "))
+                    {targetId === question._id ? (
+                      question.problem
+                    ) : (
+                      <>
+                        {question.problem.substr(
+                          0,
+                          Math.min(120, question.problem.lastIndexOf(" "))
+                        )}
+                        {question.problem.length > 120 && "..."}
+                      </>
                     )}
-                    {question.problem.length > 120 && "..."}
-                    <button onClick={() => handleDelete(question._id)}>
-                      X
-                    </button>
+                    <div className="buttons">
+                      <ModalContainer
+                        content={
+                          <FormCreateQuestion
+                            teacherId={teacherId}
+                            theQuestion={questionList.find(
+                              (obj) => obj._id === question._id
+                            )}
+                          />
+                        }
+                      />
+                      <button
+                        className="delete"
+                        onClick={() => handleDelete(question._id)}
+                      >
+                        X
+                      </button>
+                    </div>
                   </div>
                   {targetId === question._id && (
                     <div className="pool">
