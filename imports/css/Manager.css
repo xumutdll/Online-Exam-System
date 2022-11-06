@@ -287,9 +287,13 @@
   padding-left: 4px;
   height: fit-content;
 }
+.exams .the-exams .a-exam .name-description h4 {
+  display: inline;
+}
 .exams .the-exams .a-exam .name-description .buttons {
   display: flex;
   justify-content: space-between;
+  height: 72px;
 }
 
 .exams .the-exams .a-exam .name-description .side-buttons {

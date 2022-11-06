@@ -43,7 +43,6 @@ export const FormCreateQuestion = ({ teacherId, theQuestion }) => {
   };
 
   const handleOption = (e, index) => {
-    // ???????????????????????????????
     if (!prev.active) {
       !!theQuestion && question.options.forEach((e) => (e.isTrue = false));
 
@@ -53,7 +52,6 @@ export const FormCreateQuestion = ({ teacherId, theQuestion }) => {
     } else {
       question.options[prev.index].isTrue = false;
       question.options[index].isTrue = true;
-
       prev.active.classList.remove("chosen");
       setPrev({ active: e.currentTarget, index: index });
       e.currentTarget.classList.add("chosen");
@@ -114,6 +112,7 @@ export const FormCreateQuestion = ({ teacherId, theQuestion }) => {
     <div className="create-question-form">
       <h3>Question Text:</h3>
       <div className="question-head">
+        {console.log("test")}
         <textarea
           type="text"
           className="problem"

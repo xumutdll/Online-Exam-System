@@ -1,6 +1,7 @@
 import { Meteor } from "meteor/meteor";
 import { check } from "meteor/check";
 import { Accounts } from "meteor/accounts-base";
+import moment from "moment";
 
 import { QuestionsList } from "../imports/api/Collections";
 import { ExamsList } from "../imports/api/Collections";
@@ -103,7 +104,13 @@ Meteor.methods({
 
   "exams.insert"(exam) {
     check(exam, Object);
-    if (exam.startDate.getTime() < exam.endDate.getTime()) {
+    exam.startDate = exam.startDate.getTime();
+    exam.endDate = exam.endDate.getTime();
+
+    if (exam.startDate < exam.endDate) {
+      // exam.startDate = moment(exam.startDate).format("DD MMMM YYYY HH:mm");
+      // exam.endDate = moment(exam.endDate).format("DD MMMM YYYY HH:mm");
+
       ExamsList.insert(exam);
       return "Exam has successfully inserted!";
     }
@@ -116,9 +123,16 @@ Meteor.methods({
   },
   "exams.update"(exam) {
     check(exam, Object);
+    exam.startDate = exam.startDate.getTime();
+    exam.endDate = exam.endDate.getTime();
 
-    ExamsList.update({ _id: exam._id }, exam);
-    return "Exam is succesfully updated!";
+    if (exam.startDate < exam.endDate) {
+      // exam.startDate = moment(exam.startDate).format("DD MMMM YYYY HH:mm");
+      // exam.endDate = moment(exam.endDate).format("DD MMMM YYYY HH:mm");
+      ExamsList.update({ _id: exam._id }, exam);
+      return "Exam has successfully updated!";
+    }
+    return "The start date of the exam cannot be earlier than the end date of the exam!";
   },
 });
 

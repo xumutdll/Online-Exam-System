@@ -24,21 +24,6 @@ export const FormCreateExam = ({ teacherId, theExam }) => {
   const handleSave = () => {
     if (!!theExam) {
       Meteor.call("exams.update", exam, (err, res) => {
-        if (res === "Exam has successfully inserted!") {
-          setExam({
-            name: "",
-            description: "",
-            startDate: new Date(),
-            endDate: new Date(),
-            duration: "",
-            status: "pending",
-            questions: [],
-            teacherId: teacherId,
-            students: [],
-            numberOfStudents: 0,
-            createdAt: moment()._d,
-          });
-        }
         alert(res);
       });
     } else {
@@ -64,7 +49,11 @@ export const FormCreateExam = ({ teacherId, theExam }) => {
   };
 
   useEffect(() => {
-    !!theExam && setExam(theExam);
+    if (!!theExam) {
+      theExam.startDate = new Date(theExam.startDate);
+      theExam.endDate = new Date(theExam.endDate);
+      setExam(theExam);
+    }
   }, []);
 
   return (

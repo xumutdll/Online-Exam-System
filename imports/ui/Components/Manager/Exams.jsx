@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Meteor } from "meteor/meteor";
 import { useTracker } from "meteor/react-meteor-data";
+import moment from "moment";
 
-import { UserList } from "/imports/common/UserList";
-import { ModalContainer } from "../../../common/ModalContainer";
-import { FormCreateQuestion } from "../../../common/FormCreateQuestion";
-import { FormCreateExam } from "../../../common/FormCreateExam";
+import { UserList } from "../../common/UserList";
+import { ModalContainer } from "../../common/ModalContainer";
+import { FormCreateQuestion } from "../../common/FormCreateQuestion";
+import { FormCreateExam } from "../../common/FormCreateExam";
 import { QuestionsList } from "../../../api/Collections";
 import { ExamsList } from "../../../api/Collections";
 
@@ -69,11 +70,27 @@ export const Exams = () => {
                 >
                   <div className="name-description">
                     <div>
+                      <h4>Name: </h4>
                       {exam.name}
                       <br />
+                      <h4>Description: </h4>
                       {exam.description}
+                      <br />
+                      <h4>Start Date: </h4>
+                      {moment(exam.startDate).format("DD MMMM YYYY HH:mm")}
+                      <br />
+                      <h4>End Date: </h4>
+                      {moment(exam.endDate).format("DD MMMM YYYY HH:mm")}
+
+                      {!!targetedExamId && (
+                        <>
+                          <br />
+                          <h4>Duration: </h4>
+                          {exam.duration}
+                        </>
+                      )}
                     </div>
-                    {/* <button className="add-student"></button> */}
+
                     <div className="buttons">
                       <button className="add-student"></button>
                       <div className="side-buttons">

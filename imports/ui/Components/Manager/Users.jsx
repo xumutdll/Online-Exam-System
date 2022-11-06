@@ -3,7 +3,7 @@ import { Meteor } from "meteor/meteor";
 import { useTracker } from "meteor/react-meteor-data";
 import moment from "moment/moment";
 
-import { UserList } from "/imports/common/UserList";
+import { UserList } from "../../common/UserList";
 
 export const Users = () => {
   const [form, setForm] = useState(() => {
