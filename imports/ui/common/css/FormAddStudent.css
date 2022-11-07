@@ -1,0 +1,8 @@
+.add-student-form {
+  margin: 30px;
+  width: 45vw;
+  height: 35vw;
+  padding: 0 16px;
+  display: flex;
+  flex-direction: column;
+}

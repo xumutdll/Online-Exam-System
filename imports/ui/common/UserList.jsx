@@ -1,8 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useFetcher } from "react-router-dom";
 import "./css/UserList.css";
+
+import { QueryNotFound } from "./QueryNotFound";
+import { SearchBar } from "./SearchBar";
 
 export const UserList = ({ userList, handleChange }) => {
   const [prevActive, setPrevActive] = useState(() => null);
+  const [searchQuery, setSearchQuery] = useState(() => "");
 
   const handleClick = (e, id) => {
     // document.getElementById("MyElement").classList.add('MyClass');
@@ -23,17 +28,29 @@ export const UserList = ({ userList, handleChange }) => {
     }
   };
 
+  let searchlist = userList.filter(
+    (user) =>
+      user.profile.firstName.toLowerCase().includes(searchQuery) ||
+      user.profile.lastName.toLowerCase().includes(searchQuery) ||
+      user.profile.role.toLowerCase().includes(searchQuery)
+  );
+
   return (
     <ul className="user-list">
-      {userList.map((user) => {
-        return (
-          <li onClick={(e) => handleClick(e, user._id)} key={user._id}>
-            {user.profile.firstName} {user.profile.lastName}
-            {" : "}
-            {user.profile.role}
-          </li>
-        );
-      })}
+      <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+      {searchlist.length === 0 ? (
+        <QueryNotFound />
+      ) : (
+        searchlist.map((user) => {
+          return (
+            <li onClick={(e) => handleClick(e, user._id)} key={user._id}>
+              {user.profile.firstName} {user.profile.lastName}
+              {" : "}
+              {user.profile.role}
+            </li>
+          );
+        })
+      )}
     </ul>
   );
 };

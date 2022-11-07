@@ -1,0 +1,16 @@
+.search-bar {
+  display: flex;
+  height: 40px;
+  justify-content: center;
+  align-items: center;
+}
+
+.search-bar > input {
+  width: 85%;
+}
+
+.search-bar .icon {
+  position: relative;
+  right: 25px;
+  color: rgba(81, 203, 238, 1);
+}

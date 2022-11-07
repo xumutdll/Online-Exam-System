@@ -7,18 +7,18 @@ import { UserList } from "../../common/UserList";
 import { ModalContainer } from "../../common/ModalContainer";
 import { FormCreateQuestion } from "../../common/FormCreateQuestion";
 import { FormCreateExam } from "../../common/FormCreateExam";
+import { FormAddStudent } from "../../common/FormAddStudent";
 import { QuestionsList } from "../../../api/Collections";
 import { ExamsList } from "../../../api/Collections";
-
-// import "react-responsive-modal/styles.css";
-// import { Modal } from "react-responsive-modal";
+import { SearchBar } from "../../common/SearchBar";
 
 export const Exams = () => {
   const [teacherId, setTeacherId] = useState(() => null);
   const [targetedQuestionId, setTargetedQuestionId] = useState(() => "");
   const [targetedExamId, setTargetedExamId] = useState(() => "");
 
-  // const [open, setOpen] = useState(false);
+  const [searchQuestionQuery, setSearchQuestionQuery] = useState(() => "");
+  const [searchExamQuery, setSearchExamQuery] = useState(() => "");
 
   useEffect(() => {
     Meteor.subscribe("Questions", teacherId);
@@ -30,7 +30,7 @@ export const Exams = () => {
   }, []);
 
   const userList = useTracker(() => {
-    return Meteor.users.find({ "profile.role": "Teacher" }).fetch();
+    return Meteor.users.find({ "profile.role": { $ne: "Manager" } }).fetch();
   });
   const questionList = useTracker(() => {
     return QuestionsList.find({ teacherId: teacherId }).fetch();
@@ -51,16 +51,33 @@ export const Exams = () => {
     });
   };
 
+  let searchQuestion = questionList.filter((question) =>
+    question.problem.toLowerCase().includes(searchQuestionQuery)
+  );
+  let searchExam = examList.filter(
+    (exam) =>
+      exam.name.toLowerCase().includes(searchExamQuery) ||
+      exam.description.toLowerCase().includes(searchExamQuery)
+  );
+
   return (
     <div className="exams">
-      <UserList userList={userList} handleChange={(id) => setTeacherId(id)} />
+      <UserList
+        userList={userList.filter((user) => user.profile.role === "Teacher")}
+        handleChange={(id) => setTeacherId(id)}
+      />
       {!!teacherId && (
         <>
           <div className="the-exams">
             <ModalContainer
               content={<FormCreateExam teacherId={teacherId} />}
             />
-            {examList.map((exam) => {
+            <SearchBar
+              searchQuery={searchExamQuery}
+              setSearchQuery={setSearchExamQuery}
+            />
+
+            {searchExam.map((exam) => {
               return (
                 <div
                   key={exam._id}
@@ -82,7 +99,7 @@ export const Exams = () => {
                       <h4>End Date: </h4>
                       {moment(exam.endDate).format("DD MMMM YYYY HH:mm")}
 
-                      {!!targetedExamId && (
+                      {targetedExamId === exam._id && (
                         <>
                           <br />
                           <h4>Duration: </h4>
@@ -92,7 +109,18 @@ export const Exams = () => {
                     </div>
 
                     <div className="buttons">
-                      <button className="add-student"></button>
+                      <div className="add-student-button">
+                        <ModalContainer
+                          content={
+                            <FormAddStudent
+                              exam={exam}
+                              studentList={userList.filter(
+                                (user) => user.profile.role === "Student"
+                              )}
+                            />
+                          }
+                        />
+                      </div>
                       <div className="side-buttons">
                         <ModalContainer
                           content={
@@ -122,7 +150,11 @@ export const Exams = () => {
             <ModalContainer
               content={<FormCreateQuestion teacherId={teacherId} />}
             />
-            {questionList.map((question) => {
+            <SearchBar
+              searchQuery={searchQuestionQuery}
+              setSearchQuery={setSearchQuestionQuery}
+            />
+            {searchQuestion.map((question) => {
               return (
                 <div
                   key={question._id}

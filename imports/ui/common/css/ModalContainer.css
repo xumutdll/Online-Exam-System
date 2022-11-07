@@ -7,7 +7,7 @@
 .modal-button button {
   width: 60%;
   height: 35px;
-  background-color: rgba(34, 226, 30);
+  background-color: rgba(46, 206, 40);
   margin-top: 3px;
-  color: white;
+  color: rgba(255, 255, 255);
 }

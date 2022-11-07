@@ -173,7 +173,7 @@
   .head-left
   .active-status
   button.active {
-  background-color: green;
+  background-color: rgba(46, 206, 40);
 }
 
 .users .dropdown {
@@ -247,15 +247,11 @@
   padding-left: 4px;
   height: fit-content;
 }
-.exams .the-questions .a-question .expression .buttons {
-  width: 40px;
-}
+
 .exams .the-questions .a-question .expression .buttons button {
-  outline: 1px solid rgba(0, 0, 0, 0.4);
   color: white;
-  border: 0;
-  margin-left: 2px;
-  width: 40px;
+  margin-left: 6px;
+  width: 35px;
 }
 .exams .the-questions .a-question .expression .buttons .delete {
   background-color: #e3242b;
@@ -297,7 +293,7 @@
 }
 
 .exams .the-exams .a-exam .name-description .side-buttons {
-  width: 40px;
+  width: 35px;
   margin-left: 4px;
 }
 .exams .the-exams .a-exam .name-description .side-buttons button {
@@ -308,4 +304,14 @@
   background-color: #e3242b;
   height: 32px;
   margin-top: 3px;
+}
+.exams .the-exams .a-exam .name-description .add-student-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.exams .the-exams .name-description .add-student-button .modal-button > button {
+  height: 70px;
+  margin: 0;
+  width: 65px;
 }

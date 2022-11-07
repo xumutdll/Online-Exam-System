@@ -8,11 +8,13 @@ import { faPen } from "@fortawesome/free-solid-svg-icons";
 
 export const ModalContainer = ({ content }) => {
   const [open, setOpen] = useState(false);
-  console.log();
+
   return (
     <div className="modal-button">
       <button onClick={() => setOpen(true)}>
-        {content.type.name === "FormCreateExam" && !content.props.theExam ? (
+        {content.type.name === "FormAddStudent" ? (
+          "Add Student"
+        ) : content.type.name === "FormCreateExam" && !content.props.theExam ? (
           "Create a new exam"
         ) : content.type.name === "FormCreateQuestion" &&
           !content.props.theQuestion ? (
