@@ -182,7 +182,7 @@ export const FormCreateQuestion = ({ teacherId, theQuestion }) => {
               }
             ></input>
           </div>
-          {question.options < 3 ||
+          {question.options.length < 3 ||
           question.problem === "" ||
           question.point === "" ||
           isNaN(question.point) ? (

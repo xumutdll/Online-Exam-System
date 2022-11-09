@@ -168,10 +168,12 @@ export const Exams = () => {
                         question.problem
                       ) : (
                         <>
-                          {question.problem.substr(
-                            0,
-                            Math.min(120, question.problem.lastIndexOf(" "))
-                          )}
+                          {question.problem.includes(" ")
+                            ? question.problem.substr(
+                                0,
+                                Math.min(120, question.problem.lastIndexOf(" "))
+                              )
+                            : question.problem.substr(0, 120)}
                           {question.problem.length > 120 && "..."}
                         </>
                       )}
@@ -216,8 +218,9 @@ export const Exams = () => {
                                   ? "D"
                                   : "E"}
                               </h3>
-                              {option.value.substr(0, 60)}
-                              {option.value.length > 60 && "..."}
+                              {option.value.length > 60
+                                ? option.value.substr(0, 60)
+                                : option.value}
                             </div>
                           );
                         })}
