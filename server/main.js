@@ -134,6 +134,18 @@ Meteor.methods({
     }
     return "The start date of the exam cannot be earlier than the end date of the exam!";
   },
+
+  "exams.updateStudents"(exam) {
+    check(exam, Object);
+
+    let ids = [];
+    exam.students.forEach((student) => {
+      ids.push(student._id);
+    });
+
+    ExamsList.update({ _id: exam._id }, { $set: { students: ids } });
+    // return "Exam has successfully updated!";
+  },
 });
 
 Meteor.publish("Manager", () => {

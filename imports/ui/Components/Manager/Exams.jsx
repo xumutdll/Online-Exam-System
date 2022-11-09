@@ -11,6 +11,7 @@ import { FormAddStudent } from "../../common/FormAddStudent";
 import { QuestionsList } from "../../../api/Collections";
 import { ExamsList } from "../../../api/Collections";
 import { SearchBar } from "../../common/SearchBar";
+import { QueryNotFound } from "../../common/QueryNotFound";
 
 export const Exams = () => {
   const [teacherId, setTeacherId] = useState(() => null);
@@ -77,73 +78,70 @@ export const Exams = () => {
               setSearchQuery={setSearchExamQuery}
             />
 
-            {searchExam.map((exam) => {
-              return (
-                <div
-                  key={exam._id}
-                  onMouseEnter={() => setTargetedExamId(exam._id)}
-                  onMouseLeave={() => setTargetedExamId("")}
-                  className="a-exam"
-                >
-                  <div className="name-description">
-                    <div>
-                      <h4>Name: </h4>
-                      {exam.name}
-                      <br />
-                      <h4>Description: </h4>
-                      {exam.description}
-                      <br />
-                      <h4>Start Date: </h4>
-                      {moment(exam.startDate).format("DD MMMM YYYY HH:mm")}
-                      <br />
-                      <h4>End Date: </h4>
-                      {moment(exam.endDate).format("DD MMMM YYYY HH:mm")}
+            {searchExam.length === 0 ? (
+              <QueryNotFound />
+            ) : (
+              searchExam.map((exam) => {
+                return (
+                  <div
+                    key={exam._id}
+                    onMouseEnter={() => setTargetedExamId(exam._id)}
+                    onMouseLeave={() => setTargetedExamId("")}
+                    className="a-exam"
+                  >
+                    <div className="name-description">
+                      <div>
+                        <h4>Name: </h4>
+                        {exam.name}
+                        <br />
+                        <h4>Description: </h4>
+                        {exam.description}
+                        <br />
+                        <h4>Start Date: </h4>
+                        {moment(exam.startDate).format("DD MMMM YYYY HH:mm")}
+                        <br />
+                        <h4>End Date: </h4>
+                        {moment(exam.endDate).format("DD MMMM YYYY HH:mm")}
 
-                      {targetedExamId === exam._id && (
-                        <>
-                          <br />
-                          <h4>Duration: </h4>
-                          {exam.duration}
-                        </>
-                      )}
-                    </div>
-
-                    <div className="buttons">
-                      <div className="add-student-button">
-                        <ModalContainer
-                          content={
-                            <FormAddStudent
-                              exam={exam}
-                              studentList={userList.filter(
-                                (user) => user.profile.role === "Student"
-                              )}
-                            />
-                          }
-                        />
+                        {targetedExamId === exam._id && (
+                          <>
+                            <br />
+                            <h4>Duration: </h4>
+                            {exam.duration}
+                          </>
+                        )}
                       </div>
-                      <div className="side-buttons">
-                        <ModalContainer
-                          content={
-                            <FormCreateExam
-                              teacherId={teacherId}
-                              theExam={examList.find(
-                                (obj) => obj._id === exam._id
-                              )}
-                            />
-                          }
-                        />
-                        <button
-                          className="delete"
-                          onClick={() => handleExamDelete(exam._id)}
-                        >
-                          X
-                        </button>
+
+                      <div className="buttons">
+                        <div className="add-student-button">
+                          <ModalContainer
+                            content={<FormAddStudent exam={exam} />}
+                          />
+                        </div>
+                        <div className="side-buttons">
+                          <ModalContainer
+                            content={
+                              <FormCreateExam
+                                teacherId={teacherId}
+                                theExam={examList.find(
+                                  (obj) => obj._id === exam._id
+                                )}
+                              />
+                            }
+                          />
+                          <button
+                            className="delete"
+                            onClick={() => handleExamDelete(exam._id)}
+                          >
+                            X
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              );
-            })}
+                );
+              })
+            )}
           </div>
 
           <div className="the-questions">
@@ -154,77 +152,81 @@ export const Exams = () => {
               searchQuery={searchQuestionQuery}
               setSearchQuery={setSearchQuestionQuery}
             />
-            {searchQuestion.map((question) => {
-              return (
-                <div
-                  key={question._id}
-                  className="a-question"
-                  onMouseEnter={() => setTargetedQuestionId(question._id)}
-                  onMouseLeave={() => setTargetedQuestionId("")}
-                >
-                  <div className="expression">
-                    {targetedQuestionId === question._id ? (
-                      question.problem
-                    ) : (
-                      <>
-                        {question.problem.substr(
-                          0,
-                          Math.min(120, question.problem.lastIndexOf(" "))
-                        )}
-                        {question.problem.length > 120 && "..."}
-                      </>
+            {searchQuestion.length === 0 ? (
+              <QueryNotFound />
+            ) : (
+              searchQuestion.map((question) => {
+                return (
+                  <div
+                    key={question._id}
+                    className="a-question"
+                    onMouseEnter={() => setTargetedQuestionId(question._id)}
+                    onMouseLeave={() => setTargetedQuestionId("")}
+                  >
+                    <div className="expression">
+                      {targetedQuestionId === question._id ? (
+                        question.problem
+                      ) : (
+                        <>
+                          {question.problem.substr(
+                            0,
+                            Math.min(120, question.problem.lastIndexOf(" "))
+                          )}
+                          {question.problem.length > 120 && "..."}
+                        </>
+                      )}
+                      <div className="buttons">
+                        <ModalContainer
+                          content={
+                            <FormCreateQuestion
+                              teacherId={teacherId}
+                              theQuestion={questionList.find(
+                                (obj) => obj._id === question._id
+                              )}
+                            />
+                          }
+                        />
+                        <button
+                          className="delete"
+                          onClick={() => handleQuestionDelete(question._id)}
+                        >
+                          X
+                        </button>
+                      </div>
+                    </div>
+                    {targetedQuestionId === question._id && (
+                      <div className="pool">
+                        {question.options.map((option, index) => {
+                          return (
+                            <div key={option._id} className="an-option">
+                              <h3
+                                style={
+                                  option.isTrue
+                                    ? { color: "red" }
+                                    : { color: "black" }
+                                }
+                              >
+                                {index === 0
+                                  ? "A"
+                                  : index === 1
+                                  ? "B"
+                                  : index === 2
+                                  ? "C"
+                                  : index === 3
+                                  ? "D"
+                                  : "E"}
+                              </h3>
+                              {option.value.substr(0, 60)}
+                              {option.value.length > 60 && "..."}
+                            </div>
+                          );
+                        })}
+                      </div>
                     )}
-                    <div className="buttons">
-                      <ModalContainer
-                        content={
-                          <FormCreateQuestion
-                            teacherId={teacherId}
-                            theQuestion={questionList.find(
-                              (obj) => obj._id === question._id
-                            )}
-                          />
-                        }
-                      />
-                      <button
-                        className="delete"
-                        onClick={() => handleQuestionDelete(question._id)}
-                      >
-                        X
-                      </button>
-                    </div>
                   </div>
-                  {targetedQuestionId === question._id && (
-                    <div className="pool">
-                      {question.options.map((option, index) => {
-                        return (
-                          <div key={option._id} className="an-option">
-                            <h3
-                              style={
-                                option.isTrue
-                                  ? { color: "red" }
-                                  : { color: "black" }
-                              }
-                            >
-                              {index === 0
-                                ? "A"
-                                : index === 1
-                                ? "B"
-                                : index === 2
-                                ? "C"
-                                : index === 3
-                                ? "D"
-                                : "E"}
-                            </h3>
-                            {option.value.substr(0, 60)}
-                            {option.value.length > 60 && "..."}
-                          </div>
-                        );
-                      })}
-                    </div>
-                  )}
-                </div>
-              );
-            })}
+                );
+              })
+            )}
           </div>
         </>
       )}

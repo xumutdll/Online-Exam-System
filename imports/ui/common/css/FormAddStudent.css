@@ -4,5 +4,27 @@
   height: 35vw;
   padding: 0 16px;
   display: flex;
-  flex-direction: column;
+  justify-content: space-around;
+}
+
+.add-student-form ul.all-students,
+.add-student-form ul.added-students {
+  border: 1px solid rgba(0, 0, 0, 0.4);
+  width: 40%;
+  height: calc(80vh - 60px);
+  overflow-y: auto;
+  background-color: #ddd;
+  border-radius: 1rem;
+}
+.add-student-form ul.all-students h3,
+.add-student-form ul.added-students h3 {
+  text-align: center;
+}
+
+.add-student-form ul.all-students li,
+.add-student-form ul.added-students li {
+  width: 100%;
+  padding: 6px 12px 6px 12px;
+  margin: 1px 0;
+  background-color: #eee;
 }
