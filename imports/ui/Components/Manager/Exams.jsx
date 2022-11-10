@@ -16,7 +16,6 @@ import { QueryNotFound } from "../../common/QueryNotFound";
 export const Exams = () => {
   const [teacherId, setTeacherId] = useState(() => null);
   const [targetedQuestionId, setTargetedQuestionId] = useState(() => "");
-  const [targetedExamId, setTargetedExamId] = useState(() => "");
 
   const [prev, setPrev] = useState(() => {
     return { active: null, examId: "" };

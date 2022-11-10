@@ -1,7 +1,6 @@
 import { Meteor } from "meteor/meteor";
 import { check } from "meteor/check";
 import { Accounts } from "meteor/accounts-base";
-import moment from "moment";
 
 import { QuestionsList } from "../imports/api/Collections";
 import { ExamsList } from "../imports/api/Collections";
@@ -174,6 +173,12 @@ Meteor.publish("Manager", () => {
   });
 });
 
+Meteor.publish("Students", () => {
+  return Meteor.users.find({
+    "profile.role": "Students",
+  });
+});
+
 Meteor.publish("Questions", (teacherId) => {
   if (!!teacherId === false) return;
   return QuestionsList.find({ teacherId: teacherId });
@@ -184,12 +189,7 @@ Meteor.publish("Exams", (teacherId) => {
   return ExamsList.find({ teacherId: teacherId });
 });
 
-// Meteor.publish("Teacher", () => {
-//   let q = Meteor.users.find({
-//     "profile.role": "Teacher",
-//   });
-
-//   console.log(q.count());
-
-//   return q;
-// });
+Meteor.publish("StudentExams", (studentId) => {
+  if (!!studentId === false) return;
+  return ExamsList.find();
+});

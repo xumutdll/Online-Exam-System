@@ -11,6 +11,7 @@ import { Student } from "./Pages/Student.jsx";
 import { Users } from "./Components/Manager/Users.jsx";
 import { Exams } from "./Components/Manager/Exams.jsx";
 import { TeacherMain } from "./Components/Teacher/TeacherMain.jsx";
+import { StudentMain } from "./Components/Student/StudentMain.jsx";
 
 export const App = () => {
   return (
@@ -26,7 +27,9 @@ export const App = () => {
       <Route path="/teacher" element={<Teacher />}>
         <Route index element={<TeacherMain />} />
       </Route>
-      <Route path="/student" element={<Student />} />
+      <Route path="/student" element={<Student />}>
+        <Route index element={<StudentMain />} />
+      </Route>
       <Route path="*" element={<NotFound />} />
     </Routes>
 

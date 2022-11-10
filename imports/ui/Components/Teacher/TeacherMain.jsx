@@ -3,7 +3,6 @@ import { Meteor } from "meteor/meteor";
 import { useTracker } from "meteor/react-meteor-data";
 import moment from "moment";
 
-import { UserList } from "../../common/UserList";
 import { ModalContainer } from "../../common/ModalContainer";
 import { FormCreateQuestion } from "../../common/FormCreateQuestion";
 import { FormCreateExam } from "../../common/FormCreateExam";
@@ -17,8 +16,6 @@ export const TeacherMain = () => {
   let teacherId = Meteor.userId();
 
   const [targetedQuestionId, setTargetedQuestionId] = useState(() => "");
-  const [targetedExamId, setTargetedExamId] = useState(() => "");
-
   const [prev, setPrev] = useState(() => {
     return { active: null, examId: "" };
   });
@@ -29,6 +26,7 @@ export const TeacherMain = () => {
   useEffect(() => {
     Meteor.subscribe("Questions", teacherId);
     Meteor.subscribe("Exams", teacherId);
+    Meteor.subscribe("Students");
     setPrev({ active: null, examId: "" });
     setChosenExam(null);
   }, []);
