@@ -1,6 +1,5 @@
-import React, { useEffect } from "react";
-import { Routes, Route, NavLink } from "react-router-dom";
-// import { useTracker } from "meteor/react-meteor-data";
+import React from "react";
+import { Routes, Route } from "react-router-dom";
 
 import { Start } from "./Pages/Start.jsx";
 import { Login } from "./Pages/Login.jsx";
@@ -11,6 +10,7 @@ import { Manager } from "./Pages/Manager.jsx";
 import { Student } from "./Pages/Student.jsx";
 import { Users } from "./Components/Manager/Users.jsx";
 import { Exams } from "./Components/Manager/Exams.jsx";
+import { TeacherMain } from "./Components/Teacher/TeacherMain.jsx";
 
 export const App = () => {
   return (
@@ -23,7 +23,9 @@ export const App = () => {
         <Route index element={<Users />} />
         <Route path="exams" element={<Exams />} />
       </Route>
-      <Route path="/teacher" element={<Teacher />} />
+      <Route path="/teacher" element={<Teacher />}>
+        <Route index element={<TeacherMain />} />
+      </Route>
       <Route path="/student" element={<Student />} />
       <Route path="*" element={<NotFound />} />
     </Routes>

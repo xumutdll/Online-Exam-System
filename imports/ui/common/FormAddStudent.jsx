@@ -7,7 +7,7 @@ import { useTracker } from "meteor/react-meteor-data";
 
 export const FormAddStudent = ({ exam }) => {
   const userList = useTracker(() => {
-    return Meteor.users.find({ "profile.role": { $ne: "Manager" } }).fetch();
+    return Meteor.users.find({ "profile.role": "Student" }).fetch();
   });
   const list = userList.filter((user) => user.profile.role === "Student");
   const [searchQuery, setSearchQuery] = useState(() => "");

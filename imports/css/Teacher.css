@@ -1,0 +1,330 @@
+.container {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+}
+
+.container .header {
+  height: 50px;
+  width: 100%;
+  background-color: rgba(4, 100, 252);
+  display: flex;
+  justify-content: space-between;
+  padding: 0 6px;
+}
+
+.container .header .right-side {
+  display: flex;
+  align-items: center;
+}
+
+.container .header .right-side span {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 6px;
+  cursor: pointer;
+  background-color: rgb(220, 220, 220);
+}
+.container .header .right-side span:hover {
+  outline: 1px solid white;
+  background-color: transparent;
+  color: white;
+}
+
+.container .header .right-side span.profile {
+  height: 40px;
+  width: fit-content;
+  border-radius: 1rem;
+  display: flex;
+  align-items: center;
+  padding: 0 6px;
+  margin: 0 6px;
+  cursor: pointer;
+}
+.container .header .right-side span.profile div {
+  width: fit-content;
+  margin: 0 2px;
+}
+
+.container .header .left-side {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container .header .left-side .lefties {
+  height: 40px;
+  border-radius: 1rem;
+  display: flex;
+  align-items: center;
+  padding: 0 6px;
+  margin: 0 6px;
+  cursor: pointer;
+  background-color: rgb(220, 220, 220);
+}
+.container .header .left-side .lefties:hover {
+  outline: 1px solid white;
+  background-color: transparent;
+  color: white;
+}
+
+.container .users {
+  padding: 6px;
+  display: flex;
+}
+
+.container .users .info {
+  height: calc(100vh - 60px);
+  flex: 1;
+  margin-left: 6px;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 1rem;
+}
+
+.container .users .info .update-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 60%;
+  height: 100%;
+  margin: 10px;
+  padding: 4px;
+  padding-bottom: 8px;
+}
+.container .users .info .update-form .head {
+  margin-top: 20px;
+  width: 80%;
+  height: 40%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-basis: 30%;
+}
+.container .users .info .update-form .body {
+  flex-basis: 30%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.container .users .info .update-form .body > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.container .users .info .update-form .body .inputs {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 280px;
+}
+.container .users .info .update-form .body .inputs:nth-child(2n) {
+  margin-left: 20px;
+}
+
+.container .users .info .update-form .tail {
+  flex-basis: 30%;
+  display: flex;
+  justify-content: end;
+  align-items: flex-start;
+  align-self: flex-end;
+}
+
+.container .users .info .update-form .head .img {
+  width: 25%;
+  height: 100%;
+  background-color: wheat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container .users .info .update-form .head .head-left {
+  display: flex;
+  flex-direction: column;
+}
+
+.container .users .info .update-form .head .head-left div {
+  height: 50px;
+}
+.container .users .info .update-form .head .head-left .created-at {
+  display: flex;
+  align-items: center;
+}
+
+.container .users .info .update-form .head .head-left .active-status button {
+  background-color: red;
+  width: 140px;
+  color: white;
+}
+.container
+  .users
+  .info
+  .update-form
+  .head
+  .head-left
+  .active-status
+  button.active {
+  background-color: rgba(46, 206, 40);
+}
+
+.users .dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.users .dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  z-index: 1;
+}
+
+.users .dropdown-content a {
+  border: 1px solid rgba(0, 0, 0, 0.4);
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+
+  color: black;
+  background-color: white;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.users .dropdown-content a:hover {
+  background-color: #f1f1f1;
+}
+
+.users .dropdown:hover .dropdown-content {
+  display: block;
+  cursor: pointer;
+}
+
+.users .dropdown button.dropbtn:hover {
+  background-color: rgb(128, 128, 128);
+}
+
+.exams {
+  padding: 6px;
+  display: flex;
+  height: 92%;
+}
+
+.exams .the-questions {
+  background-color: white;
+  margin-left: 6px;
+  width: 35%;
+  border-radius: 1rem;
+  overflow-y: auto;
+}
+
+.exams .the-exams {
+  background-color: white;
+  margin-left: 6px;
+  flex: 1;
+  border-radius: 1rem;
+  overflow-y: auto;
+}
+.exams .the-questions .a-question {
+  margin: 12px 0 12px 8px;
+  border: 1px solid rgba(0, 0, 0, 0.4);
+  border-radius: 1rem;
+  padding: 4px;
+}
+.exams .the-questions .a-question .expression {
+  display: flex;
+  justify-content: space-between;
+  border-radius: 1rem;
+  padding-left: 4px;
+  height: fit-content;
+}
+.exams .the-questions .a-question .expression .problem {
+  cursor: pointer;
+}
+
+.exams .the-questions .a-question .expression .buttons button {
+  color: white;
+  margin-left: 6px;
+  width: 35px;
+}
+.exams .the-questions .a-question .expression .buttons .delete {
+  background-color: #e3242b;
+  height: 32px;
+  margin-top: 3px;
+}
+
+.exams .the-questions .a-question .pool {
+  width: 80%;
+  margin-left: 10%;
+}
+
+.exams .the-questions .a-question .pool .an-option h3 {
+  display: inline;
+  margin-right: 12px;
+}
+
+.exams .the-exams .a-exam {
+  margin: 12px 0 12px 8px;
+  border: 1px solid rgba(0, 0, 0, 0.4);
+  border-radius: 1rem;
+  padding: 4px;
+}
+.exams .the-exams .chosen {
+  background-color: rgba(0, 0, 255, 0.5);
+}
+
+.exams .the-exams .a-exam .name-description {
+  display: flex;
+  justify-content: space-between;
+  border-radius: 1rem;
+  padding-left: 4px;
+  height: fit-content;
+}
+.exams .the-exams .a-exam .name-description h4 {
+  display: inline;
+}
+.exams .the-exams .a-exam .name-description .buttons {
+  display: flex;
+  justify-content: space-between;
+  height: 72px;
+}
+
+.exams .the-exams .a-exam .name-description .side-buttons {
+  width: 35px;
+  margin-left: 4px;
+}
+.exams .the-exams .a-exam .name-description .side-buttons button {
+  width: 100%;
+  color: white;
+}
+.exams .the-exams .a-exam .name-description .side-buttons .delete {
+  background-color: #e3242b;
+  height: 32px;
+  margin-top: 3px;
+}
+.exams .the-exams .a-exam .name-description .add-student-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.exams .the-exams .name-description .add-student-button .modal-button > button {
+  height: 70px;
+  margin: 0;
+  width: 65px;
+}
+
+.exams .the-exams .name-description .added-questions {
+  padding: 6px 6px 6px 6px;
+  margin: 4px 0 6px 2px;
+  border: 1px solid rgba(0, 0, 0, 0.4);
+  border-radius: 1rem;
+}
