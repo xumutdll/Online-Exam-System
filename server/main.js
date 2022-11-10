@@ -146,6 +146,26 @@ Meteor.methods({
     ExamsList.update({ _id: exam._id }, { $set: { students: ids } });
     // return "Exam has successfully updated!";
   },
+  "exams.updateQuestions"(exam) {
+    check(exam, Object);
+    let ids = [];
+    exam.questions.forEach((question) => {
+      ids.push(question._id);
+    });
+
+    ExamsList.update({ _id: exam._id }, { $set: { questions: ids } });
+    // return "Exam has successfully updated!";
+  },
+
+  "exams.questionRemove"(exam) {
+    check(exam, Object);
+
+    ExamsList.update(
+      { _id: exam._id },
+      { $set: { questions: exam.questions } }
+    );
+    // return "Exam has successfully updated!";
+  },
 });
 
 Meteor.publish("Manager", () => {

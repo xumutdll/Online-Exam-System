@@ -112,7 +112,6 @@ export const FormCreateQuestion = ({ teacherId, theQuestion }) => {
     <div className="create-question-form">
       <h3>Question Text:</h3>
       <div className="question-head">
-        {console.log("test")}
         <textarea
           type="text"
           className="problem"

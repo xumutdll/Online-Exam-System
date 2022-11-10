@@ -18,12 +18,18 @@ export const Exams = () => {
   const [targetedQuestionId, setTargetedQuestionId] = useState(() => "");
   const [targetedExamId, setTargetedExamId] = useState(() => "");
 
+  const [prev, setPrev] = useState(() => {
+    return { active: null, examId: "" };
+  });
+  const [chosenExam, setChosenExam] = useState(() => null);
   const [searchQuestionQuery, setSearchQuestionQuery] = useState(() => "");
   const [searchExamQuery, setSearchExamQuery] = useState(() => "");
 
   useEffect(() => {
     Meteor.subscribe("Questions", teacherId);
     Meteor.subscribe("Exams", teacherId);
+    setPrev({ active: null, examId: "" });
+    setChosenExam(null);
   }, [teacherId]);
 
   useEffect(() => {
@@ -61,6 +67,61 @@ export const Exams = () => {
       exam.description.toLowerCase().includes(searchExamQuery)
   );
 
+  const handleExamClick = (e, exam) => {
+    if (!prev.active) {
+      setPrev({ active: e.currentTarget, examId: exam._id });
+      e.currentTarget.className += " chosen";
+    } else {
+      // when you cahse the current user
+      prev.active.classList.remove("chosen");
+      setPrev({ active: e.currentTarget, examId: exam._id });
+      e.currentTarget.classList.add("chosen");
+    }
+    if (typeof exam.questions[0] === "object" || exam.questions.length === 0) {
+      setChosenExam(exam);
+    } else {
+      let q = [];
+      exam.questions.forEach((element) => {
+        questionList.forEach((question) => {
+          if (element === question._id) {
+            q.push(question);
+          }
+        });
+      });
+      exam.questions = q;
+      setChosenExam(exam);
+    }
+  };
+
+  const handleIn = (question) => {
+    let flag = true;
+
+    chosenExam.questions.forEach((element) => {
+      if (element._id === question._id) {
+        return (flag = false);
+      }
+    });
+    if (flag === true) {
+      setChosenExam({
+        ...chosenExam,
+        questions: [...chosenExam.questions, question],
+      });
+    }
+  };
+  const handleRemove = (exam, questionId) => {
+    let newlist = exam.questions.filter((question) => question !== questionId);
+    exam.questions = newlist;
+    Meteor.call("exams.questionRemove", exam);
+  };
+
+  useEffect(() => {
+    if (!!chosenExam) {
+      if (chosenExam.length !== 0) {
+        Meteor.call("exams.updateQuestions", chosenExam);
+      }
+    }
+  }, [chosenExam]);
+
   return (
     <div className="exams">
       <UserList
@@ -85,8 +146,7 @@ export const Exams = () => {
                 return (
                   <div
                     key={exam._id}
-                    onMouseEnter={() => setTargetedExamId(exam._id)}
-                    onMouseLeave={() => setTargetedExamId("")}
+                    onClick={(e) => handleExamClick(e, exam)}
                     className="a-exam"
                   >
                     <div className="name-description">
@@ -102,12 +162,36 @@ export const Exams = () => {
                         <br />
                         <h4>End Date: </h4>
                         {moment(exam.endDate).format("DD MMMM YYYY HH:mm")}
-
-                        {targetedExamId === exam._id && (
+                        <br />
+                        <h4>Duration: </h4>
+                        {exam.duration}
+                        <br />
+                        {prev.examId === exam._id && (
                           <>
-                            <br />
-                            <h4>Duration: </h4>
-                            {exam.duration}
+                            {!!chosenExam &&
+                              chosenExam.questions.map((question, index) => {
+                                return (
+                                  <div
+                                    key={question._id}
+                                    className="added-questions"
+                                    onClick={() =>
+                                      handleRemove(exam, question._id)
+                                    }
+                                  >
+                                    <h4>Question {index + 1}: </h4>
+                                    {question.problem.includes(" ")
+                                      ? question.problem.substr(
+                                          0,
+                                          Math.min(
+                                            120,
+                                            question.problem.lastIndexOf(" ")
+                                          )
+                                        )
+                                      : question.problem.substr(0, 120)}{" "}
+                                    {question.problem.length > 120 && "..."}
+                                  </div>
+                                );
+                              })}
                           </>
                         )}
                       </div>
@@ -145,90 +229,104 @@ export const Exams = () => {
           </div>
 
           <div className="the-questions">
-            <ModalContainer
-              content={<FormCreateQuestion teacherId={teacherId} />}
-            />
-            <SearchBar
-              searchQuery={searchQuestionQuery}
-              setSearchQuery={setSearchQuestionQuery}
-            />
-            {searchQuestion.length === 0 ? (
-              <QueryNotFound />
-            ) : (
-              searchQuestion.map((question) => {
-                return (
-                  <div
-                    key={question._id}
-                    className="a-question"
-                    onMouseEnter={() => setTargetedQuestionId(question._id)}
-                    onMouseLeave={() => setTargetedQuestionId("")}
-                  >
-                    <div className="expression">
-                      {targetedQuestionId === question._id ? (
-                        question.problem
-                      ) : (
-                        <>
-                          {question.problem.includes(" ")
-                            ? question.problem.substr(
-                                0,
-                                Math.min(120, question.problem.lastIndexOf(" "))
-                              )
-                            : question.problem.substr(0, 120)}
-                          {question.problem.length > 120 && "..."}
-                        </>
-                      )}
-                      <div className="buttons">
-                        <ModalContainer
-                          content={
-                            <FormCreateQuestion
-                              teacherId={teacherId}
-                              theQuestion={questionList.find(
-                                (obj) => obj._id === question._id
-                              )}
+            {!!chosenExam && (
+              <>
+                <ModalContainer
+                  content={<FormCreateQuestion teacherId={teacherId} />}
+                />
+
+                <SearchBar
+                  searchQuery={searchQuestionQuery}
+                  setSearchQuery={setSearchQuestionQuery}
+                />
+
+                {searchQuestion.length === 0 ? (
+                  <QueryNotFound />
+                ) : (
+                  searchQuestion.map((question) => {
+                    return (
+                      <div
+                        key={question._id}
+                        className="a-question"
+                        onMouseEnter={() => setTargetedQuestionId(question._id)}
+                        onMouseLeave={() => setTargetedQuestionId("")}
+                      >
+                        <div className="expression">
+                          <div
+                            className="problem"
+                            onClick={() => handleIn(question)}
+                          >
+                            {targetedQuestionId === question._id ? (
+                              question.problem
+                            ) : (
+                              <>
+                                {question.problem.includes(" ")
+                                  ? question.problem.substr(
+                                      0,
+                                      Math.min(
+                                        120,
+                                        question.problem.lastIndexOf(" ")
+                                      )
+                                    )
+                                  : question.problem.substr(0, 120)}
+                                {question.problem.length > 120 && "..."}
+                              </>
+                            )}
+                          </div>
+                          <div className="buttons">
+                            <ModalContainer
+                              content={
+                                <FormCreateQuestion
+                                  teacherId={teacherId}
+                                  theQuestion={questionList.find(
+                                    (obj) => obj._id === question._id
+                                  )}
+                                />
+                              }
                             />
-                          }
-                        />
-                        <button
-                          className="delete"
-                          onClick={() => handleQuestionDelete(question._id)}
-                        >
-                          X
-                        </button>
+                            <button
+                              className="delete"
+                              onClick={() => handleQuestionDelete(question._id)}
+                            >
+                              X
+                            </button>
+                          </div>
+                        </div>
+                        {targetedQuestionId === question._id && (
+                          <div className="pool">
+                            {question.options.map((option, index) => {
+                              return (
+                                <div key={option._id} className="an-option">
+                                  <h3
+                                    style={
+                                      option.isTrue
+                                        ? { color: "red" }
+                                        : { color: "black" }
+                                    }
+                                  >
+                                    {index === 0
+                                      ? "A"
+                                      : index === 1
+                                      ? "B"
+                                      : index === 2
+                                      ? "C"
+                                      : index === 3
+                                      ? "D"
+                                      : "E"}
+                                  </h3>
+                                  {option.value.length > 60
+                                    ? option.value.substr(0, 60)
+                                    : option.value}
+                                </div>
+                              );
+                            })}
+                          </div>
+                        )}
                       </div>
-                    </div>
-                    {targetedQuestionId === question._id && (
-                      <div className="pool">
-                        {question.options.map((option, index) => {
-                          return (
-                            <div key={option._id} className="an-option">
-                              <h3
-                                style={
-                                  option.isTrue
-                                    ? { color: "red" }
-                                    : { color: "black" }
-                                }
-                              >
-                                {index === 0
-                                  ? "A"
-                                  : index === 1
-                                  ? "B"
-                                  : index === 2
-                                  ? "C"
-                                  : index === 3
-                                  ? "D"
-                                  : "E"}
-                              </h3>
-                              {option.value.length > 60
-                                ? option.value.substr(0, 60)
-                                : option.value}
-                            </div>
-                          );
-                        })}
-                      </div>
-                    )}
-                  </div>
-                );
-              })
+                    );
+                  })
+                )}
+              </>
             )}
           </div>
         </>

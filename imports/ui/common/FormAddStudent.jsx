@@ -70,7 +70,6 @@ export const FormAddStudent = ({ exam }) => {
       </ul>
       <ul className="added-students">
         <h3>Added Students</h3>
-        {console.log(theExam.students)}
         {theExam.students.length > 0 &&
           typeof theExam.students[0] === "object" &&
           theExam.students.map((student) => {
