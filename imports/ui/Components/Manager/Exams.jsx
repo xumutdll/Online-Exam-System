@@ -193,6 +193,13 @@ export const Exams = () => {
                               })}
                           </>
                         )}
+                        {exam.questions.length === 0 && (
+                          <>
+                            <h4 className="no-question">
+                              This exam has no questions!
+                            </h4>
+                          </>
+                        )}
                       </div>
 
                       <div className="buttons">

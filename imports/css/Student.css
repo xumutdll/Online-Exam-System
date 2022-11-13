@@ -21,14 +21,16 @@
 }
 
 .exams .the-exams .a-exam {
-  margin: 12px 0 12px 8px;
+  margin: 12px 8px 12px 8px;
   border: 1px solid rgba(0, 0, 0, 0.4);
   border-radius: 1rem;
   padding: 4px;
+  display: flex;
+  justify-content: space-between;
 }
-.exams .the-exams .chosen {
+/* .exams .the-exams .chosen {
   background-color: rgba(0, 0, 255, 0.5);
-}
+} */
 
 .exams .the-exams .a-exam .name-description {
   display: flex;
@@ -40,39 +42,10 @@
 .exams .the-exams .a-exam .name-description h4 {
   display: inline;
 }
-.exams .the-exams .a-exam .name-description .buttons {
-  display: flex;
-  justify-content: space-between;
-  height: 72px;
-}
 
-.exams .the-exams .a-exam .name-description .side-buttons {
-  width: 35px;
-  margin-left: 4px;
+.exams .the-exams .a-exam .side-buttons {
+  margin-left: 6px;
 }
-.exams .the-exams .a-exam .name-description .side-buttons button {
-  width: 100%;
-  color: white;
-}
-.exams .the-exams .a-exam .name-description .side-buttons .delete {
-  background-color: #e3242b;
-  height: 32px;
-  margin-top: 3px;
-}
-.exams .the-exams .a-exam .name-description .add-student-button {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.exams .the-exams .name-description .add-student-button .modal-button > button {
-  height: 70px;
-  margin: 0;
-  width: 65px;
-}
-
-.exams .the-exams .name-description .added-questions {
-  padding: 6px 6px 6px 6px;
-  margin: 4px 0 6px 2px;
-  border: 1px solid rgba(0, 0, 0, 0.4);
-  border-radius: 1rem;
+.exams .the-exams .a-exam .side-buttons button {
+  background-color: rgba(46, 206, 40);
 }

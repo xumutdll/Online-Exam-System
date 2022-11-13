@@ -12,6 +12,7 @@ import { Users } from "./Components/Manager/Users.jsx";
 import { Exams } from "./Components/Manager/Exams.jsx";
 import { TeacherMain } from "./Components/Teacher/TeacherMain.jsx";
 import { StudentMain } from "./Components/Student/StudentMain.jsx";
+import { Exam } from "./Pages/Exam.jsx";
 
 export const App = () => {
   return (
@@ -30,6 +31,7 @@ export const App = () => {
       <Route path="/student" element={<Student />}>
         <Route index element={<StudentMain />} />
       </Route>
+      <Route path="/exam/:examId/question/:questionId" element={<Exam />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
 
