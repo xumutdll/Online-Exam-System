@@ -315,7 +315,7 @@ export const TeacherMain = () => {
                 )}
               </>
             )}
-          </div>{" "}
+          </div>
         </>
       )}
     </div>

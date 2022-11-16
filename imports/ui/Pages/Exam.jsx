@@ -34,12 +34,6 @@ export const Exam = () => {
       index: "",
     };
   });
-  const [prevOption, setPrevOption] = useState(() => {
-    return {
-      active: null,
-      index: "",
-    };
-  });
 
   useEffect(() => {
     Meteor.subscribe("StudentExams", studentId);
@@ -135,10 +129,14 @@ export const Exam = () => {
 
   const optionClick = (option, question) => {
     let isPrevResult = false;
+    let sameOptionClicked = false;
     let qIndex = null;
 
     results.selections.forEach((selection, index) => {
       if (selection.questionId === question._id) {
+        if (option._id === selection.optionId) {
+          sameOptionClicked = true;
+        }
         qIndex = index;
         return (isPrevResult = true);
       }
@@ -158,6 +156,9 @@ export const Exam = () => {
         ...results,
         selections: [...results.selections, selection],
       });
+    } else if (sameOptionClicked === true) {
+      results.selections.splice(qIndex, 1);
+      setResults({ ...results });
     } else {
       results.selections.splice(qIndex, 1);
       setResults({
@@ -179,6 +180,7 @@ export const Exam = () => {
         for (link of leftOptionLinks) {
           link.classList.remove("chosen-option");
         }
+
         results.selections.forEach((selection) => {
           if (selection.questionId === selectedQuestion._id) {
             document
@@ -195,6 +197,31 @@ export const Exam = () => {
       }
     }
   }, [results]);
+
+  const next = () => {
+    questionList.forEach((question, index) => {
+      if (
+        question._id === selectedQuestion._id &&
+        questionList.length - 2 >= index
+      ) {
+        questionLinks[index].classList.remove("chosen");
+        setPrevQuestion({ active: questionLinks[index + 1], index: index + 1 });
+        questionLinks[index + 1].classList.add("chosen");
+        setSelectedQuestion({ ...questionList[index + 1], index: index + 2 });
+      }
+    });
+  };
+
+  const previous = () => {
+    questionList.forEach((question, index) => {
+      if (question._id === selectedQuestion._id && index >= 1) {
+        questionLinks[index].classList.remove("chosen");
+        setPrevQuestion({ active: questionLinks[index - 1], index: index - 1 });
+        questionLinks[index - 1].classList.add("chosen");
+        setSelectedQuestion({ ...questionList[index - 1], index: index });
+      }
+    });
+  };
 
   return (
     <div className="exam">
@@ -235,7 +262,14 @@ export const Exam = () => {
               );
             })}
         </div>
-        <div className="footer"></div>
+        <div className="footer">
+          <div className="left" onClick={previous}>
+            Previous
+          </div>
+          <div className="right" onClick={next}>
+            Next
+          </div>
+        </div>
       </div>
       <div className="side">
         <div className="duration">
