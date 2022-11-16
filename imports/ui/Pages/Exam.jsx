@@ -6,6 +6,8 @@ import moment from "moment";
 
 import { ExamResults, ExamsList } from "../../api/Collections";
 import { QuestionsList } from "../../api/Collections";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 
 export const Exam = () => {
   let studentId = Meteor.userId();
@@ -103,18 +105,20 @@ export const Exam = () => {
   useEffect(() => {
     if (!!exam) {
       if (!!selectedQuestion) {
-        navigate(`/exam/:${exam._id}/question/:${selectedQuestion._id}`);
+        if (!!results) {
+          navigate(`/exam/:${exam._id}/question/:${selectedQuestion._id}`);
 
-        for (link of leftOptionLinks) {
-          link.classList.remove("chosen-option");
-        }
-        results.selections.forEach((selection) => {
-          if (selection.questionId === selectedQuestion._id) {
-            document
-              .getElementById(selection.optionId + "0")
-              .classList.add("chosen-option");
+          for (link of leftOptionLinks) {
+            link.classList.remove("chosen-option");
           }
-        });
+          results.selections.forEach((selection) => {
+            if (selection.questionId === selectedQuestion._id) {
+              document
+                .getElementById(selection.optionId + "0")
+                .classList.add("chosen-option");
+            }
+          });
+        }
       }
     }
   }, [selectedQuestion]);
@@ -223,6 +227,10 @@ export const Exam = () => {
     });
   };
 
+  const handleSubmit = () => {
+    navigate(`/student`);
+  };
+
   return (
     <div className="exam">
       <div className="main">
@@ -273,7 +281,13 @@ export const Exam = () => {
       </div>
       <div className="side">
         <div className="duration">
-          <h2>Remaining Time:</h2>
+          <div className="clock">
+            <h2>Remaining Time:</h2>
+          </div>
+          <div className="leave" onClick={handleSubmit}>
+            <FontAwesomeIcon icon={faArrowRightFromBracket} />
+            <h4>Submit</h4>
+          </div>
         </div>
         <div className="questions">
           {!!questionList &&
@@ -321,12 +335,3 @@ export const Exam = () => {
     </div>
   );
 };
-// <button
-//   onClick={() =>
-//     navigate(
-//       `/exam/${params.examId}/question/${Math.floor(Math.random() * 10)}`
-//     )
-//   }
-// >
-//   next
-// </button>

@@ -40,11 +40,11 @@
   display: flex;
   flex-direction: column;
   padding: 12px 0;
-  padding-left: 16px;
+  padding-left: 18px;
 }
 
 .exam .main .body .option {
-  padding: 6px 8px;
+  padding: 6px 12px;
   border-radius: 1rem;
   border: 1px solid rgba(0, 0, 0, 0.4);
   display: flex;
@@ -71,7 +71,23 @@
   height: 10%;
   background-color: white;
   border-radius: 1rem;
-  padding: 16px;
+  display: flex;
+}
+.exam .side .duration .clock {
+  margin: 16px;
+  flex: 1;
+}
+.exam .side .duration .leave {
+  width: 20%;
+  background-color: rgb(51, 102, 85);
+  color: white;
+  border-radius: 0 1rem 1rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 6px;
+  cursor: pointer;
 }
 
 .exam .side .questions {
@@ -112,7 +128,7 @@
 
 .exam .main .footer {
   width: 40%;
-  height: 10%;
+  height: 8%;
   background-color: aquamarine;
   border-radius: 1rem;
   margin-bottom: 1vh;
