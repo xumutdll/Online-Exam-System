@@ -114,6 +114,7 @@
   padding: 4px 8px;
 }
 
+.exam .main .body .option,
 .exam .side .questions .question-link .right .an-option:hover {
   cursor: pointer;
 }

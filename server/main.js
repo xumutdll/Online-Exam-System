@@ -4,6 +4,7 @@ import { Accounts } from "meteor/accounts-base";
 
 import { QuestionsList } from "../imports/api/Collections";
 import { ExamsList } from "../imports/api/Collections";
+import { ExamResults } from "../imports/api/Collections";
 
 Meteor.startup(() => {});
 
@@ -165,6 +166,26 @@ Meteor.methods({
     );
     // return "Exam has successfully updated!";
   },
+
+  "examResult.insert"(results) {
+    check(results, Object);
+
+    let exists = ExamResults.findOne({
+      studentId: results.studentId,
+      examId: results.examId,
+    });
+
+    !exists && ExamResults.insert(results);
+  },
+
+  "examResult.updateNewSelection"(results) {
+    check(results, Object);
+
+    ExamResults.update(
+      { studentId: results.studentId, examId: results.examId },
+      { $set: { selections: results.selections } }
+    );
+  },
 });
 
 Meteor.publish("Manager", () => {
@@ -192,4 +213,8 @@ Meteor.publish("Exams", (teacherId) => {
 Meteor.publish("StudentExams", (studentId) => {
   if (!!studentId === false) return;
   return ExamsList.find();
+});
+
+Meteor.publish("ExamResults", (studentId, examId) => {
+  return ExamResults.find({ studentId: studentId, examId: examId });
 });
