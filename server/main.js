@@ -218,3 +218,7 @@ Meteor.publish("StudentExams", (studentId) => {
 Meteor.publish("ExamResults", (studentId, examId) => {
   return ExamResults.find({ studentId: studentId, examId: examId });
 });
+
+Meteor.publish("ResultsSummary", (studentId) => {
+  return ExamResults.find({ studentId: studentId });
+});

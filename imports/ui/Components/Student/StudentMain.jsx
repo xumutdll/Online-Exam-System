@@ -15,11 +15,25 @@ export const StudentMain = () => {
 
   useEffect(() => {
     Meteor.subscribe("StudentExams", studentId);
+    Meteor.subscribe("ResultsSummary", studentId);
   }, []);
 
   let examList = useTracker(() => {
-    return ExamsList.find().fetch();
+    let list = ExamsList.find().fetch();
+    let filtered = [];
+    list.forEach((exam) => {
+      exam.students.forEach((id) => {
+        if (id === studentId) {
+          filtered.push(exam);
+        }
+      });
+    });
+    return filtered;
   });
+
+  // const resultsSummary = useTracker(() => {
+  //   return ExamResults.find().fetch();
+  // });
 
   useEffect(() => {
     let myExams = [];
