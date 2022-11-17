@@ -42,7 +42,15 @@ export const Exams = () => {
     return QuestionsList.find({ teacherId: teacherId }).fetch();
   });
   const examList = useTracker(() => {
-    return ExamsList.find({ teacherId: teacherId }).fetch();
+    let list = ExamsList.find({ teacherId: teacherId }).fetch();
+    list.forEach((exam) => {
+      if (moment(exam.endDate).isBefore(moment())) {
+        exam.status = "Expired";
+      } else if (moment().isBetween(moment(exam.startDate), exam.endDate)) {
+        exam.status = "Ongoing";
+      }
+    });
+    return list;
   });
 
   const handleQuestionDelete = (questionId) => {
@@ -165,6 +173,8 @@ export const Exams = () => {
                         <h4>Duration: </h4>
                         {exam.duration}
                         <br />
+                        <h4>Status: </h4>
+                        {exam.status}
                         {prev.examId === exam._id && (
                           <>
                             {!!chosenExam &&

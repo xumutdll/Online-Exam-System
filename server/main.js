@@ -5,6 +5,7 @@ import { Accounts } from "meteor/accounts-base";
 import { QuestionsList } from "../imports/api/Collections";
 import { ExamsList } from "../imports/api/Collections";
 import { ExamResults } from "../imports/api/Collections";
+import { duration } from "moment";
 
 Meteor.startup(() => {});
 
@@ -216,9 +217,12 @@ Meteor.publish("StudentExams", (studentId) => {
 });
 
 Meteor.publish("ExamResults", (studentId, examId) => {
+  if (!!studentId === false || examId === false) return;
+
   return ExamResults.find({ studentId: studentId, examId: examId });
 });
 
 Meteor.publish("ResultsSummary", (studentId) => {
+  if (!!studentId === false) return;
   return ExamResults.find({ studentId: studentId });
 });

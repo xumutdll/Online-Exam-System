@@ -4,6 +4,7 @@ import { Meteor } from "meteor/meteor";
 import { useTracker } from "meteor/react-meteor-data";
 import moment from "moment";
 
+import { ExamResults } from "../../../api/Collections";
 import { ExamsList } from "../../../api/Collections";
 import { SearchBar } from "../../common/SearchBar";
 import { QueryNotFound } from "../../common/QueryNotFound";
@@ -18,10 +19,15 @@ export const StudentMain = () => {
     Meteor.subscribe("ResultsSummary", studentId);
   }, []);
 
-  let examList = useTracker(() => {
+  const examList = useTracker(() => {
     let list = ExamsList.find().fetch();
     let filtered = [];
     list.forEach((exam) => {
+      if (moment(exam.endDate).isBefore(moment())) {
+        exam.status = "Expired";
+      } else if (moment().isBetween(moment(exam.startDate), exam.endDate)) {
+        exam.status = "Ongoing";
+      }
       exam.students.forEach((id) => {
         if (id === studentId) {
           filtered.push(exam);
@@ -31,21 +37,11 @@ export const StudentMain = () => {
     return filtered;
   });
 
-  // const resultsSummary = useTracker(() => {
-  //   return ExamResults.find().fetch();
-  // });
+  const resultsList = useTracker(() => {
+    return ExamResults.find().fetch();
+  });
 
-  useEffect(() => {
-    let myExams = [];
-    examList.forEach((exam) => {
-      exam.students.forEach((id) => {
-        if (id === studentId) {
-          myExams.push(exam);
-        }
-      });
-    });
-    examList = myExams;
-  }, [examList]);
+  useEffect(() => {}, [examList]);
 
   let searchExam = examList.filter(
     (exam) =>
@@ -53,7 +49,11 @@ export const StudentMain = () => {
       exam.description.toLowerCase().includes(searchExamQuery)
   );
 
-  const handleExamClick = () => {};
+  const handleExamClick = () => {
+    examList.forEach((exam) => {
+      console.log(moment(exam.endDate).isAfter(moment()));
+    });
+  };
 
   const takeTheExam = (exam) => {
     navigate(`/exam/:${exam._id}/question/:${exam.questions[0]}`);
@@ -88,6 +88,12 @@ export const StudentMain = () => {
                             <h4>Description: </h4>
                             {exam.description}
                             <br />
+                            <h4>Number of Questions: </h4>
+                            {exam.questions.length}
+                            <br />
+                            <h4>Duration: </h4>
+                            {exam.duration}
+                            <br />
                             <h4>Start Date: </h4>
                             {moment(exam.startDate).format(
                               "DD MMMM YYYY HH:mm"
@@ -96,17 +102,18 @@ export const StudentMain = () => {
                             <h4>End Date: </h4>
                             {moment(exam.endDate).format("DD MMMM YYYY HH:mm")}
                             <br />
-                            <h4>Duration: </h4>
-                            {exam.duration}
-                            <br />
-                            <h4>Number of Questions: </h4>
-                            {exam.questions.length}
+                            <h4>Status: </h4>
+                            {exam.status}
                           </div>
                         </div>
                         <div className="side-buttons">
-                          <button onClick={() => takeTheExam(exam)}>
-                            Take the exam
-                          </button>
+                          {exam.status === "Ongoing" ? (
+                            <button onClick={() => takeTheExam(exam)}>
+                              Take the exam
+                            </button>
+                          ) : (
+                            <button disabled>Take the exam</button>
+                          )}
                         </div>
                       </div>
                     )}
