@@ -1,5 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
+import { Meteor } from "meteor/meteor";
+import { useNavigate } from "react-router-dom";
+import { useTracker } from "meteor/react-meteor-data";
 
 import { Start } from "./Pages/Start.jsx";
 import { Login } from "./Pages/Login.jsx";
@@ -15,6 +18,24 @@ import { StudentMain } from "./Components/Student/StudentMain.jsx";
 import { Exam } from "./Pages/Exam.jsx";
 
 export const App = () => {
+  const navigate = useNavigate();
+
+  const user = useTracker(() => {
+    return Meteor.user();
+  });
+
+  useEffect(() => {
+    user &&
+    (window.location.pathname === "/" ||
+      window.location.pathname === "/register")
+      ? user.profile.role === "Manager"
+        ? navigate("/manager")
+        : user.profile.role === "Teacher"
+        ? navigate("/teacher")
+        : navigate("/student")
+      : {};
+  }, [user]);
+
   return (
     <Routes>
       <Route path="/" element={<Start />}>

@@ -204,6 +204,7 @@ export const Exam = () => {
 
   const next = () => {
     questionList.forEach((question, index) => {
+      console.log(selectedQuestion);
       if (
         question._id === selectedQuestion._id &&
         questionList.length - 2 >= index

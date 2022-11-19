@@ -6,18 +6,18 @@ export const Login = () => {
   const [email, setEmail] = useState(() => "");
   const [password, setPassword] = useState(() => "");
 
-  const user = Meteor.user();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    user && window.location.pathname === "/"
-      ? user.profile.role === "Manager"
-        ? navigate("/manager")
-        : user.profile.role === "Teacher"
-        ? navigate("/teacher")
-        : navigate("/student")
-      : {};
-  }, [user]);
+  // const user = Meteor.user();
+  // useEffect(() => {
+  //   user && window.location.pathname === "/"
+  //     ? user.profile.role === "Manager"
+  //       ? navigate("/manager")
+  //       : user.profile.role === "Teacher"
+  //       ? navigate("/teacher")
+  //       : navigate("/student")
+  //     : {};
+  // }, [user]);
 
   const handleLogin = (e) => {
     e.preventDefault();

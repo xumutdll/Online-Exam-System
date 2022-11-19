@@ -41,8 +41,6 @@ export const StudentMain = () => {
     return ExamResults.find().fetch();
   });
 
-  useEffect(() => {}, [examList]);
-
   let searchExam = examList.filter(
     (exam) =>
       exam.name.toLowerCase().includes(searchExamQuery) ||
@@ -50,9 +48,7 @@ export const StudentMain = () => {
   );
 
   const handleExamClick = () => {
-    examList.forEach((exam) => {
-      console.log(moment(exam.endDate).isAfter(moment()));
-    });
+    console.log("object");
   };
 
   const takeTheExam = (exam) => {
@@ -73,10 +69,9 @@ export const StudentMain = () => {
             ) : (
               searchExam.map((exam) => {
                 return (
-                  <>
+                  <div key={exam._id}>
                     {exam.questions.length !== 0 && (
                       <div
-                        key={exam._id}
                         onClick={(e) => handleExamClick(e, exam)}
                         className="a-exam"
                       >
@@ -117,7 +112,7 @@ export const StudentMain = () => {
                         </div>
                       </div>
                     )}
-                  </>
+                  </div>
                 );
               })
             )}
