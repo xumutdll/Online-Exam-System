@@ -1,23 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Meteor } from "meteor/meteor";
-import { useNavigate } from "react-router-dom";
 
 export const Login = () => {
   const [email, setEmail] = useState(() => "");
   const [password, setPassword] = useState(() => "");
-
-  const navigate = useNavigate();
-
-  // const user = Meteor.user();
-  // useEffect(() => {
-  //   user && window.location.pathname === "/"
-  //     ? user.profile.role === "Manager"
-  //       ? navigate("/manager")
-  //       : user.profile.role === "Teacher"
-  //       ? navigate("/teacher")
-  //       : navigate("/student")
-  //     : {};
-  // }, [user]);
 
   const handleLogin = (e) => {
     e.preventDefault();

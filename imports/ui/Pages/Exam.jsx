@@ -97,6 +97,11 @@ export const Exam = () => {
           setPrevQuestion({ active: questionLinks[index], index: index + 1 });
 
           setResults(resultList);
+
+          setInterval(() => {
+            console.log("x");
+          }, 1000);
+          console.log("first");
         }
       }
     }
@@ -175,7 +180,10 @@ export const Exam = () => {
   useEffect(() => {
     if (!!resultList) {
       // Database update for a new selection
-      if (results.selections.length !== resultList.selections) {
+      if (
+        results.selections.length !== resultList.selections &&
+        results.selections.length !== 0
+      ) {
         Meteor.call("examResult.updateNewSelection", results);
 
         for (link of optionLinks) {
@@ -204,7 +212,6 @@ export const Exam = () => {
 
   const next = () => {
     questionList.forEach((question, index) => {
-      console.log(selectedQuestion);
       if (
         question._id === selectedQuestion._id &&
         questionList.length - 2 >= index
