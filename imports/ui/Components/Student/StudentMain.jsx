@@ -48,7 +48,7 @@ export const StudentMain = () => {
   );
 
   const handleExamClick = () => {
-    console.log("object");
+    console.log("handleExamClick");
   };
 
   const takeTheExam = (exam) => {

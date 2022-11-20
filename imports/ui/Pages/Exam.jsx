@@ -4,6 +4,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import "../../css/Exam.css";
 import moment from "moment";
 
+import { TimerComp } from "./TimerComp";
 import { ExamResults, ExamsList } from "../../api/Collections";
 import { QuestionsList } from "../../api/Collections";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -26,6 +27,7 @@ export const Exam = () => {
       selections: [],
       result: { true: null, false: null, empty: null, point: null },
       timeSpent: null,
+      completed: false,
       examEntryDate: moment()._d,
     };
   });
@@ -36,6 +38,7 @@ export const Exam = () => {
       index: "",
     };
   });
+  const [stopTheClock, setStopTheClock] = useState(() => false);
 
   useEffect(() => {
     Meteor.subscribe("StudentExams", studentId);
@@ -97,11 +100,6 @@ export const Exam = () => {
           setPrevQuestion({ active: questionLinks[index], index: index + 1 });
 
           setResults(resultList);
-
-          setInterval(() => {
-            console.log("x");
-          }, 1000);
-          console.log("first");
         }
       }
     }
@@ -236,7 +234,8 @@ export const Exam = () => {
   };
 
   const handleSubmit = () => {
-    navigate(`/student`);
+    // navigate(`/student`);
+    setStopTheClock(true);
   };
 
   return (
@@ -290,7 +289,19 @@ export const Exam = () => {
       <div className="side">
         <div className="duration">
           <div className="clock">
-            <h2>Remaining Time:</h2>
+            <h2>
+              Remaining Time:
+              {!!resultList && (
+                <TimerComp
+                  examDuration={!!exam && exam.duration}
+                  startTime={
+                    !!resultList.examEntryDate &&
+                    resultList.examEntryDate.getTime()
+                  }
+                  stop={stopTheClock}
+                />
+              )}
+            </h2>
           </div>
           <div className="leave" onClick={handleSubmit}>
             <FontAwesomeIcon icon={faArrowRightFromBracket} />
