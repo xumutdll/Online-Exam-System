@@ -187,6 +187,15 @@ Meteor.methods({
       { $set: { selections: results.selections } }
     );
   },
+
+  "examResult.examSubmitted"(results) {
+    check(results, Object);
+
+    ExamResults.update(
+      { studentId: results.studentId, examId: results.examId },
+      { $set: { completed: true } }
+    );
+  },
 });
 
 Meteor.publish("Manager", () => {

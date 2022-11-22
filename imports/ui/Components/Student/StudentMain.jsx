@@ -38,7 +38,14 @@ export const StudentMain = () => {
   });
 
   const resultsList = useTracker(() => {
-    return ExamResults.find().fetch();
+    let list = ExamResults.find().fetch();
+    let filtered = [];
+    list.forEach((result) => {
+      if (result.studentId === studentId) {
+        filtered.push(result);
+      }
+    });
+    return filtered;
   });
 
   let searchExam = examList.filter(
@@ -47,12 +54,23 @@ export const StudentMain = () => {
       exam.description.toLowerCase().includes(searchExamQuery)
   );
 
+  let completedExams = resultsList.filter((exam) => exam.completed === true);
+
   const handleExamClick = () => {
-    console.log("handleExamClick");
+    // console.log(completedExams);
   };
 
   const takeTheExam = (exam) => {
     navigate(`/exam/:${exam._id}/question/:${exam.questions[0]}`);
+  };
+
+  const isExamAvailable = (exam) => {
+    let ids = [];
+    completedExams.forEach((e) => {
+      ids.push(e.examId);
+    });
+    if (ids.filter((id) => exam._id === id).length > 0) return false;
+    if (exam.status === "Ongoing") return true;
   };
 
   return (
@@ -102,7 +120,7 @@ export const StudentMain = () => {
                           </div>
                         </div>
                         <div className="side-buttons">
-                          {exam.status === "Ongoing" ? (
+                          {isExamAvailable(exam) ? (
                             <button onClick={() => takeTheExam(exam)}>
                               Take the exam
                             </button>

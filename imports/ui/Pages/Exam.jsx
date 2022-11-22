@@ -78,6 +78,7 @@ export const Exam = () => {
   });
 
   useEffect(() => {
+    if (!resultList) return;
     if (!!questionList) {
       if (!selectedQuestion) {
         let current = [];
@@ -178,6 +179,7 @@ export const Exam = () => {
   useEffect(() => {
     if (!!resultList) {
       // Database update for a new selection
+
       if (
         results.selections.length !== resultList.selections &&
         results.selections.length !== 0
@@ -204,6 +206,10 @@ export const Exam = () => {
             .getElementById(selection.optionId)
             .classList.add("chosen-option");
         });
+      }
+      if (results.completed === true) {
+        navigate(`/student`);
+        Meteor.call("examResult.examSubmitted", results);
       }
     }
   }, [results]);
@@ -235,6 +241,7 @@ export const Exam = () => {
 
   const handleSubmit = () => {
     // navigate(`/student`);
+    setResults({ ...results, completed: true });
     setStopTheClock(true);
   };
 
@@ -299,6 +306,7 @@ export const Exam = () => {
                     resultList.examEntryDate.getTime()
                   }
                   stop={stopTheClock}
+                  timeOut={handleSubmit}
                 />
               )}
             </h2>
