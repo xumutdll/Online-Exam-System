@@ -13,6 +13,8 @@ export const StudentMain = () => {
   let studentId = Meteor.userId();
   const navigate = useNavigate();
   const [searchExamQuery, setSearchExamQuery] = useState(() => "");
+  const [prevActive, setPrevActive] = useState(() => null);
+  const [isParticipated, setIsParticipated] = useState(() => null);
 
   useEffect(() => {
     Meteor.subscribe("StudentExams", studentId);
@@ -56,8 +58,32 @@ export const StudentMain = () => {
 
   let completedExams = resultsList.filter((exam) => exam.completed === true);
 
-  const handleExamClick = () => {
-    // console.log(completedExams);
+  useEffect(() => {
+    console.log(isParticipated);
+  }, [isParticipated]);
+
+  const handleExamClick = (e, exam) => {
+    let flag = false;
+    completedExams.forEach((ex) => {
+      if (ex.examId === exam._id) {
+        flag = ex;
+      }
+    });
+    if (!!flag) {
+      setIsParticipated(flag);
+    } else {
+      setIsParticipated(false);
+    }
+
+    if (!prevActive) {
+      setPrevActive(e.currentTarget);
+      e.currentTarget.className += " chosen";
+    } else {
+      // when you cahse the current user
+      prevActive.classList.remove("chosen");
+      setPrevActive(e.currentTarget);
+      e.currentTarget.classList.add("chosen");
+    }
   };
 
   const takeTheExam = (exam) => {
@@ -137,7 +163,19 @@ export const StudentMain = () => {
               })
             )}
           </div>
-          <div className="summary"></div>
+          <div className="summary">
+            {isParticipated === null ? (
+              <></>
+            ) : (
+              <>
+                {!!isParticipated ? (
+                  <div className="participated">yes</div>
+                ) : (
+                  <div className="did-not-participated">no</div>
+                )}
+              </>
+            )}
+          </div>
         </>
       )}
     </div>

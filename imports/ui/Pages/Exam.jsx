@@ -25,7 +25,14 @@ export const Exam = () => {
       studentId: studentId,
       examId: params.examId.substring(1),
       selections: [],
-      result: { true: null, false: null, empty: null, point: null },
+      result: {
+        true: 0,
+        false: 0,
+        empty: 0,
+        point: 0,
+        examPoint: null,
+        examQuestion: null,
+      },
       timeSpent: null,
       completed: false,
       examEntryDate: moment()._d,
@@ -208,6 +215,7 @@ export const Exam = () => {
         });
       }
       if (results.completed === true) {
+        console.log(results);
         navigate(`/student`);
         Meteor.call("examResult.examSubmitted", results);
       }
@@ -240,7 +248,22 @@ export const Exam = () => {
   };
 
   const handleSubmit = () => {
-    // navigate(`/student`);
+    questionList.forEach((question) => {
+      results.result.examPoint += Number(question.point);
+    });
+    results.selections.forEach((selection) => {
+      results.result.point += selection.point;
+      if (selection.isTrue === true) {
+        results.result.true += 1;
+      } else {
+        results.result.false += 1;
+      }
+    });
+    results.result.empty =
+      exam.questions.length - results.result.true - results.result.false;
+
+    results.result.examQuestion = exam.questions.length;
+
     setResults({ ...results, completed: true });
     setStopTheClock(true);
   };
