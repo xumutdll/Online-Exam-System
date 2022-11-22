@@ -263,7 +263,6 @@ export const Exam = () => {
       exam.questions.length - results.result.true - results.result.false;
 
     results.result.examQuestion = exam.questions.length;
-
     setResults({ ...results, completed: true });
     setStopTheClock(true);
   };

@@ -62,15 +62,15 @@ export const StudentMain = () => {
     console.log(isParticipated);
   }, [isParticipated]);
 
-  const handleExamClick = (e, exam) => {
-    let flag = false;
-    completedExams.forEach((ex) => {
-      if (ex.examId === exam._id) {
-        flag = ex;
+  const handleExamClick = (e, id) => {
+    let participatedExam = false;
+    completedExams.forEach((exam) => {
+      if (exam.examId === id) {
+        participatedExam = exam;
       }
     });
-    if (!!flag) {
-      setIsParticipated(flag);
+    if (!!participatedExam) {
+      setIsParticipated(participatedExam);
     } else {
       setIsParticipated(false);
     }
@@ -118,7 +118,7 @@ export const StudentMain = () => {
                   <div key={exam._id}>
                     {exam.questions.length !== 0 && (
                       <div
-                        onClick={(e) => handleExamClick(e, exam)}
+                        onClick={(e) => handleExamClick(e, exam._id)}
                         className="a-exam"
                       >
                         <div className="name-description">

@@ -193,7 +193,7 @@ Meteor.methods({
 
     ExamResults.update(
       { studentId: results.studentId, examId: results.examId },
-      { $set: { completed: true } }
+      results
     );
   },
 });
