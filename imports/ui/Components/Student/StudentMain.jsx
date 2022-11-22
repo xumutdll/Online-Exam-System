@@ -69,7 +69,9 @@ export const StudentMain = () => {
     completedExams.forEach((e) => {
       ids.push(e.examId);
     });
-    if (ids.filter((id) => exam._id === id).length > 0) return false;
+    if (ids.filter((id) => exam._id === id).length > 0) {
+      return false;
+    }
     if (exam.status === "Ongoing") return true;
   };
 

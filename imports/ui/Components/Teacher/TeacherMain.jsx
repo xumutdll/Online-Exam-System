@@ -164,6 +164,7 @@ export const TeacherMain = () => {
                         <br />
                         <h4>Status: </h4>
                         {exam.status}
+                        <br />
                         {prev.examId === exam._id && (
                           <>
                             {!!chosenExam &&
