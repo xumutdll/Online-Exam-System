@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Timer, Time, TimerOptions } from "timer-node";
+import moment from "moment";
 
 export const TimerComp = ({ examDuration, startTime, stop, timeOut }) => {
   const [timerState, setTimerState] = useState(() => "");
@@ -19,11 +20,11 @@ export const TimerComp = ({ examDuration, startTime, stop, timeOut }) => {
   useEffect(() => {
     clock = setInterval(() => {
       let remainingTime = Number(examDuration) * 60000 - timer.ms();
-      // setTimerState(moment(remainingTime).format("HH:mm:ss"));
+      setTimerState(moment.utc(remainingTime).format(`HH:mm:ss`));
 
-      let minutes = Math.floor(remainingTime / 60000);
-      let seconds = ((remainingTime % 60000) / 1000).toFixed(0);
-      setTimerState(minutes + ":" + (seconds < 10 ? "0" : "") + seconds);
+      // let minutes = Math.floor(remainingTime / 60000);
+      // let seconds = ((remainingTime % 60000) / 1000).toFixed(0);
+      // setTimerState(minutes + ":" + (seconds < 10 ? "0" : "") + seconds);
       if (remainingTime <= 0) {
         clearInterval(clock);
         timeOut();

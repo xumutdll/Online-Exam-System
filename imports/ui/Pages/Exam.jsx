@@ -248,6 +248,9 @@ export const Exam = () => {
   };
 
   const handleSubmit = () => {
+    let diff = moment().valueOf() - results.examEntryDate.getTime();
+    results.timeSpent = moment.utc(diff).format(`HH:mm:ss`);
+
     questionList.forEach((question) => {
       results.result.examPoint += Number(question.point);
     });
