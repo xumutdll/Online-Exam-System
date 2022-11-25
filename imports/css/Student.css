@@ -18,6 +18,7 @@
   width: 35%;
   border-radius: 1rem;
   overflow-y: auto;
+  padding: 16px 24px;
 }
 
 .exams .the-exams .a-exam {
@@ -48,4 +49,16 @@
 }
 .exams .the-exams .a-exam .side-buttons button {
   background-color: rgba(46, 206, 40);
+}
+
+.exams .summary > h2 {
+  text-decoration: underline;
+  margin-bottom: 12px;
+}
+.exams .summary .participated h4 {
+  display: inline;
+}
+
+.exams .summary .space {
+  margin-left: 6px;
 }

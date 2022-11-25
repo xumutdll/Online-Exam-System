@@ -215,7 +215,6 @@ export const Exam = () => {
         });
       }
       if (results.completed === true) {
-        console.log(results);
         navigate(`/student`);
         Meteor.call("examResult.examSubmitted", results);
       }

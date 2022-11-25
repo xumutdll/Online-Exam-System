@@ -58,10 +58,6 @@ export const StudentMain = () => {
 
   let completedExams = resultsList.filter((exam) => exam.completed === true);
 
-  useEffect(() => {
-    console.log(isParticipated);
-  }, [isParticipated]);
-
   const handleExamClick = (e, id) => {
     let participatedExam = false;
     completedExams.forEach((exam) => {
@@ -164,14 +160,51 @@ export const StudentMain = () => {
             )}
           </div>
           <div className="summary">
+            <h2>Results</h2>
             {isParticipated === null ? (
               <></>
             ) : (
               <>
                 {!!isParticipated ? (
-                  <div className="participated">yes</div>
+                  <div className="participated">
+                    <h4>Your Score: </h4>
+                    {isParticipated.result.point}
+                    <br />
+                    <h4>Total Exam Score: </h4>
+                    {isParticipated.result.examPoint}
+                    <br />
+                    {/* <div className="space">
+                      <h4>Total: </h4>
+                      {isParticipated.result.point}/
+                      {isParticipated.result.examPoint}
+                    </div> */}
+                    <br />
+                    <h4>Number of Questions: </h4>
+                    {isParticipated.result.examQuestion}
+                    <br />
+                    <div className="space">
+                      <h4>True: </h4>
+                      {isParticipated.result.true}
+                      <br />
+                      <h4>False: </h4>
+                      {isParticipated.result.false}
+                      <br />
+                      <h4>Empty: </h4>
+                      {isParticipated.result.empty}
+                    </div>
+                    <br />
+                    <h4>Time Spent: </h4>
+                    {isParticipated.timeSpent}
+                    <br />
+                    <h4>Exam Entry Date: </h4>
+                    {moment(isParticipated.examEntryDate).format(
+                      "DD MMMM YYYY HH:mm"
+                    )}
+                  </div>
                 ) : (
-                  <div className="did-not-participated">no</div>
+                  <div className="did-not-participated">
+                    You haven't participated to this exam.
+                  </div>
                 )}
               </>
             )}
