@@ -15,5 +15,5 @@ ul.user-list li {
 }
 
 ul.user-list li.chosen {
-  background-color: rgba(0, 0, 255, 0.5);
+  background-color: rgb(47, 189, 130);
 }

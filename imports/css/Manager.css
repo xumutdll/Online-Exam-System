@@ -7,7 +7,7 @@
 .container .header {
   height: 50px;
   width: 100%;
-  background-color: rgba(4, 100, 252);
+  background-color: rgb(17, 139, 89);
   display: flex;
   justify-content: space-between;
   padding: 0 6px;
