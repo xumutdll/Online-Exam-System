@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import { useFetcher } from "react-router-dom";
+import React, { useState } from "react";
 import "./css/UserList.css";
 
 import { QueryNotFound } from "./QueryNotFound";
