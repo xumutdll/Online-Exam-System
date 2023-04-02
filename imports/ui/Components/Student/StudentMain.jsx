@@ -146,10 +146,10 @@ export const StudentMain = () => {
                         <div className="side-buttons">
                           {isExamAvailable(exam) ? (
                             <button onClick={() => takeTheExam(exam)}>
-                              Take the exam
+                              Take the Exam
                             </button>
                           ) : (
-                            <button disabled>Take the exam</button>
+                            <button disabled>Take the Exam</button>
                           )}
                         </div>
                       </div>
