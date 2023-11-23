@@ -138,6 +138,11 @@
   align-self: flex-end;
 }
 
+.container .users .info .update-form .tail button {
+  width: 150px;
+  height: 40px;
+}
+
 .container .users .info .update-form .head .img {
   width: 25%;
   height: 100%;
@@ -222,6 +227,7 @@
 .exams .the-questions {
   background-color: white;
   margin-left: 6px;
+  padding-right: 6px;
   width: 30%;
   border-radius: 1rem;
   overflow-y: auto;
@@ -230,6 +236,7 @@
 .exams .the-exams {
   background-color: white;
   margin-left: 6px;
+  padding-right: 6px;
   flex: 1;
   border-radius: 1rem;
   overflow-y: auto;

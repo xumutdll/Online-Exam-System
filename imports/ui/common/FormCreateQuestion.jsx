@@ -163,9 +163,7 @@ export const FormCreateQuestion = ({ teacherId, theQuestion }) => {
         {question.options.length === 5 ? (
           <button disabled>Maximum number of options!</button>
         ) : (
-          <button onClick={() => setOptionFormFlag(true)}>
-            Add an option!
-          </button>
+          <button onClick={() => setOptionFormFlag(true)}>Add an option</button>
         )}
       </div>
       <div className="filler"></div>
